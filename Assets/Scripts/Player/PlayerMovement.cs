@@ -27,7 +27,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector3(direction.x * _movementSpeed * Time.fixedDeltaTime, 0f , direction.y * _movementSpeed * Time.fixedDeltaTime);
+        Move();
+    }
+
+    protected void Move()
+    {
+        float Xmovement = direction.x * _movementSpeed * Time.fixedDeltaTime;
+        float Ymovement = _rb.linearVelocity.y;
+        float Zmovement = direction.y * _movementSpeed * Time.fixedDeltaTime;
+        _rb.linearVelocity = new Vector3(Xmovement, Ymovement , Zmovement);
     }
 
     private void OnTriggerEnter(Collider other)
