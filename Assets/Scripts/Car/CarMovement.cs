@@ -33,6 +33,7 @@ public class CarMovement : MonoBehaviour
     public bool jumpWheel;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _distanceRaycast;
+    [SerializeField] private Vector3 _offsetRaycast;
     private float _direction;
     #endregion
 
@@ -41,7 +42,6 @@ public class CarMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.maxLinearVelocity = _maxSpeed;
-        _rb.linearVelocity = new Vector3(0, 0, 0);
     }
 
     private void Update()
@@ -76,8 +76,8 @@ public class CarMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.DrawLine(gameObject.transform.position, gameObject.transform.position - new Vector3(0f,_distanceRaycast,0f), Color.red);
-        _isGrounded = Physics.Raycast(gameObject.transform.position, Vector2.down, _distanceRaycast, LayerMask.GetMask("Ground"));
+        Debug.DrawLine(gameObject.transform.position + _offsetRaycast, gameObject.transform.position - new Vector3(0f,_distanceRaycast,0f), Color.red);
+        _isGrounded = Physics.Raycast(gameObject.transform.position + _offsetRaycast, Vector2.down, _distanceRaycast, LayerMask.GetMask("Ground"));
         if (_isGrounded)
         {
             if (_direction > 0f)
@@ -94,6 +94,7 @@ public class CarMovement : MonoBehaviour
                 {
                     Decelerate(1);
                 }
+                Turn(axis);
             }
 
             else if (_direction < 0f)
@@ -110,13 +111,14 @@ public class CarMovement : MonoBehaviour
                 {
                     Decelerate(-1);
                 }
+                Turn(axis * -1);
             }
 
             else
             {
                 Decelerate(1);
             }
-                Turn(axis);
+                
 
             if (jumpPedal && jumpWheel)
             {
