@@ -27,7 +27,7 @@ public class PlayerController : Controller
         }
         else
         {
-            if (Input.GetKeyDown("Space"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _playerMovement.Jump();
             }

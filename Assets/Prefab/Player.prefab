@@ -182,6 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _movementSpeed: 200
-  _jumpForce: 500
+  _jumpForce: 5
   objectCurrentController: {fileID: 3079125046707793632}
   direction: {x: 0, y: 0}
