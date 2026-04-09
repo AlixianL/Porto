@@ -6,13 +6,13 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] protected KeyCode DebugInput;
+    [SerializeField] protected KeyCode debugInput;
     [SerializeField] public Controller otherController;
 
     #region KeyboardControl
     [Header("Keyboard :", order = 1)]
     [Header("Set Param :", order = 1)]
-    [SerializeField] protected bool isKeyboard;
+    [SerializeField] public bool isKeyboard;
     [SerializeField] protected int indexKeyboard;
     protected Keyboard keyboard;
     [Header("Horizontal Y", order = 1)]
@@ -26,6 +26,7 @@ public class Controller : MonoBehaviour
     [SerializeField] protected KeyCode negativeForceInput;
     [Header("Interact", order = 1)]
     [SerializeField] protected KeyCode interactInput;
+    [SerializeField] protected KeyCode SwitchControllerInput;
     #endregion
 
     #region GamepadControl
@@ -46,7 +47,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            gamepad = Gamepad.all[0];
+            gamepad = Gamepad.all[indexGamepad];
         }
     }
     
@@ -78,6 +79,10 @@ public class Controller : MonoBehaviour
         if (Input.GetKey(PositiveForceInput))
         {
             PositiveForce();
+        }
+        if (Input.GetKeyDown(SwitchControllerInput))
+        {
+            SwitchController();
         }
     }
 
@@ -118,11 +123,11 @@ public class Controller : MonoBehaviour
         {
             InteractInput();
         }
-        if (gamepad.leftShoulder.isPressed)
+        if (gamepad.leftTrigger.isPressed)
         {
             NegativeForce();
         }
-        if (gamepad.rightShoulder.isPressed)
+        if (gamepad.rightTrigger.isPressed)
         {
             PositiveForce();
         }
@@ -147,7 +152,7 @@ public class Controller : MonoBehaviour
 
     public virtual void InteractInput()
     {
-
+        print("InteractInput");
     }
 
     public virtual void PositiveForce()

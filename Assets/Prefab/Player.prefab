@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 4106124333098827042}
   - component: {fileID: 3079125046707793632}
   - component: {fileID: 7172032198369756279}
+  - component: {fileID: 3144473068683825753}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,17 +157,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c62adb64b5a88d468bc212d01b812c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  DebugInput: 9
+  debugInput: 0
   otherController: {fileID: 3079125046707793632}
   isKeyboard: 0
   indexKeyboard: 0
-  positiveDirectionX: 119
-  negativeDirectionX: 115
-  positiveDirectionY: 100
-  negativeDirectionY: 97
-  PositiveForceInput: 101
-  negativeForceInput: 113
-  interactInput: 102
+  positiveDirectionX: 100
+  negativeDirectionX: 97
+  positiveDirectionY: 119
+  negativeDirectionY: 115
+  PositiveForceInput: 323
+  negativeForceInput: 324
+  interactInput: 101
+  SwitchControllerInput: 102
   indexGamepad: 0
   _playerMovement: {fileID: 7172032198369756279}
 --- !u!114 &7172032198369756279
@@ -185,3 +187,24 @@ MonoBehaviour:
   _jumpForce: 5
   objectCurrentController: {fileID: 3079125046707793632}
   direction: {x: 0, y: 0}
+--- !u!135 &3144473068683825753
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}

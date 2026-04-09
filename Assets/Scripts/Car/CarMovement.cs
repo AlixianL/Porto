@@ -31,10 +31,17 @@ public class CarMovement : MonoBehaviour
     public float axis;
     public bool jumpPedal;
     public bool jumpWheel;
+    public bool isInLevel;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _distanceRaycast;
     [SerializeField] private Vector3 _offsetRaycast;
     private float _direction;
+    #endregion
+
+    #region Scripts
+    public bool _wheelController;
+    public bool _pedalsController;
+    public CameraManager cameraManager;
     #endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,6 +49,7 @@ public class CarMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.maxLinearVelocity = _maxSpeed;
+        cameraManager = GetComponentInChildren<CameraManager>();
     }
 
     private void Update()
@@ -69,7 +77,6 @@ public class CarMovement : MonoBehaviour
             {
                 _direction = -1f;
             }
-            print(_direction);
         }
     }
 
@@ -78,7 +85,7 @@ public class CarMovement : MonoBehaviour
     {
         Debug.DrawLine(gameObject.transform.position + _offsetRaycast, gameObject.transform.position - new Vector3(0f,_distanceRaycast,0f), Color.red);
         _isGrounded = Physics.Raycast(gameObject.transform.position + _offsetRaycast, Vector2.down, _distanceRaycast, LayerMask.GetMask("Ground"));
-        if (_isGrounded)
+        if (_isGrounded && _wheelController && _pedalsController)
         {
             if (_direction > 0f)
             {
@@ -172,5 +179,22 @@ public class CarMovement : MonoBehaviour
     private void Jump()
     {
         _rb.AddForce(new Vector3(0f,_jumpForce,0f), ForceMode.Impulse);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Level"))
+        {
+            isInLevel = true;
+            cameraManager._levelCamera = other.GetComponentInChildren<Camera>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Level"))
+        {
+            isInLevel = false;
+        }
     }
 }

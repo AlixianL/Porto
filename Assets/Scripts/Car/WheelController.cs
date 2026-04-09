@@ -1,15 +1,32 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WheelController : Controller
 {
     [SerializeField] private CarMovement _carMovement;
     [SerializeField] private float _delayJumpInput;
+    private BoxCollider _collider;
 
     public override void Start()
     {
-        base.Start();
-        otherController = this;
+    }
+
+    public void OnEnable()
+    {
+        if (!isKeyboard)
+        {
+            gamepad = Gamepad.all[indexGamepad];
+        }
+        _collider = GetComponent<BoxCollider>();
+
+        _carMovement._wheelController = true;
+        _collider.enabled = false;
+        if (_carMovement._pedalsController)
+        {
+            _carMovement.cameraManager.ChangeCamera();
+        }
+        print("Wheel enabled");
     }
 
     // Update is called once per frame
@@ -29,6 +46,21 @@ public class WheelController : Controller
             {
                 StartCoroutine(JumpTimer());
             }
+        }
+    }
+
+    public override void SwitchController()
+    {
+        if (_carMovement.isInLevel)
+        {
+            _collider.enabled = true;
+            _carMovement._wheelController = false;
+            if (_carMovement._pedalsController)
+            {
+                _carMovement.cameraManager.ChangeCamera();
+            }
+            transform.GetChild(0).gameObject.SetActive(true);
+            base.SwitchController();
         }
     }
 
