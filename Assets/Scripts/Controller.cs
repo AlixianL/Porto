@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.LowLevel;
 public class Controller : MonoBehaviour
 {
     [SerializeField] protected KeyCode debugInput;
-    [SerializeField] public Controller otherController;
+    [SerializeField] public Controller controllerToSwitch;
 
     #region KeyboardControl
     [Header("Keyboard :", order = 1)]
@@ -141,7 +141,7 @@ public class Controller : MonoBehaviour
     #region Commun Functions
     public virtual void SwitchController()
     {
-        otherController.enabled = true;
+        controllerToSwitch.enabled = true;
         this.enabled = false;
     }
 

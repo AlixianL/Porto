@@ -24,7 +24,7 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     #endregion
 
-    #region VariblesTest
+    #region VariablesTest
     [Header("Debug booléans : ")]
     public bool forwardInput;
     public bool backwardInput;

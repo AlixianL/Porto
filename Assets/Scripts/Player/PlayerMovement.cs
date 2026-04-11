@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
                 otherController.indexGamepad = objectCurrentController.indexGamepad;
                 otherController.isKeyboard = false;
             }
-            otherController.otherController = objectCurrentController;
+            otherController.controllerToSwitch = objectCurrentController;
             gameObject.transform.SetParent(otherController.gameObject.transform, true);
             otherController.enabled = true;
             gameObject.SetActive(false);

@@ -709,6 +709,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3079125046707793632, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
       propertyPath: isKeyboard
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079125046707793632, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: indexGamepad
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3144473068683825753, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
