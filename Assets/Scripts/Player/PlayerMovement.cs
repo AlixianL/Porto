@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpForce;
     private bool _canInteract;
     private bool _canControlled;
+    private bool _canHandle;
     private Controller otherController;
     public Controller objectCurrentController;
     private Rigidbody _rb;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _canInteract = false;
         _canControlled = false;
+        _canHandle = false;
     }
 
     // Update is called once per frame
@@ -38,6 +40,43 @@ public class PlayerMovement : MonoBehaviour
         _rb.linearVelocity = new Vector3(Xmovement, Ymovement , Zmovement);
     }
 
+    public void Interact()
+    {
+        if (_canInteract)
+        {
+            print("interact");
+        }
+        if (_canHandle)
+        {
+            print("can lift other player");
+        }
+    }
+
+    public void Jump()
+    {
+        _rb.AddForce(new Vector3(0f,_jumpForce,0f), ForceMode.Impulse);
+    }
+
+    public void TakeControl()
+    {
+        if (_canControlled)
+        {
+            if (objectCurrentController.isKeyboard)
+            {
+                otherController.isKeyboard = true;
+            }
+            else
+            {
+                otherController.indexGamepad = objectCurrentController.indexGamepad;
+                otherController.isKeyboard = false;
+            }
+            otherController.controllerToSwitch = objectCurrentController;
+            gameObject.transform.SetParent(otherController.gameObject.transform, true);
+            otherController.enabled = true;
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Interactible"))
@@ -48,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _canControlled = true;
             otherController = other.gameObject.GetComponent<Controller>();
+            print("rentre en collision");
+        }
+        else if (other.CompareTag("Player"))
+        {
+            _canHandle = true;
         }
     }
 
@@ -61,30 +105,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _canControlled = false;
             otherController = null;
+            print("sort de la collision");
         }
-    }
-
-    public void Interact()
-    {
-        if (_canInteract)
+        else if (other.CompareTag("Player"))
         {
-            print("interact");
-        }
-    }
-
-    public void Jump()
-    {
-        _rb.AddForce(new Vector3(0f,_jumpForce,0f), ForceMode.Impulse);
-    }
-
-    public void TakeControl()
-    {
-        if (_canControlled)
-        {
-            otherController.enabled = true;
-            otherController.indexGamepad = objectCurrentController.indexGamepad;
-            otherController.otherController = objectCurrentController;
-            this.enabled = false;
+            _canHandle = false;
         }
     }
 }
