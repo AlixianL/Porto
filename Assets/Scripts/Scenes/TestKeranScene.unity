@@ -398,17 +398,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &555964510 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2429006658892255095, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-  m_PrefabInstance: {fileID: 961357572}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &555964513 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7999276669697645174, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
   m_PrefabInstance: {fileID: 961357572}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555964510}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32a7a809304b767479e977432400a6e4, type: 3}
@@ -422,6 +417,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1653286202048950159, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: m_TagString
+      value: LeftDoor
+      objectReference: {fileID: 0}
     - target: {fileID: 2429006658892255095, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: m_Name
       value: SM_Car
@@ -473,6 +472,10 @@ PrefabInstance:
     - target: {fileID: 3494592905223268860, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: m_LocalPosition.z
       value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763820592031617867, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: m_TagString
+      value: RightDoor
       objectReference: {fileID: 0}
     - target: {fileID: 7924147504432737480, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: m_Enabled
@@ -677,22 +680,34 @@ MonoBehaviour:
     m_ActionName: 'Wheel/Wheel[/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 555964510}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 555964513}
+        m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
+        m_MethodName: OnAccelerator
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 7d6eeb98-64b8-4b2b-9d18-705209e66d03
     m_ActionName: 'Pedal/Accelerator[/Keyboard/z]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 555964513}
+        m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
+        m_MethodName: OnBreakInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e31419a9-53be-4553-b209-909f23af804d
     m_ActionName: 'Pedal/Break[/Keyboard/s]'
   - m_PersistentCalls:
@@ -712,6 +727,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionId
+      value: 7d6eeb98-64b8-4b2b-9d18-705209e66d03
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      value: e31419a9-53be-4553-b209-909f23af804d
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionId
+      value: d0f42e29-9a76-4f26-96c2-3481c862c95d
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionName
+      value: 'Pedal/Accelerator[/Keyboard/z,/XInputControllerWindows/rightShoulder]'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      value: 'Pedal/Break[/Keyboard/s,/XInputControllerWindows/leftShoulder]'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionName
+      value: 'Pedal/HandBreak[/Keyboard/space,/XInputControllerWindows/buttonEast]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771259795512416324, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: otherController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771259795512416324, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: objectCurrentController
+      value: 
+      objectReference: {fileID: 1307938087}
     - target: {fileID: 5447390162024020651, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
       propertyPath: m_Name
       value: Player-1
@@ -761,6 +812,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+--- !u!114 &1307938087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4771259795512416324, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+  m_PrefabInstance: {fileID: 1269431979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5a48b0721d8484d9d0c5051622783d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
 --- !u!1 &1360427063
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +935,87 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1486401068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4870897974616292779, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
+    - target: {fileID: -4870897974616292779, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771259795512416324, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: _jumpForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771259795512416324, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: _movementSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771259795512416324, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: otherController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771259795512416324, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: objectCurrentController
+      value: 
+      objectReference: {fileID: 1890826100}
+    - target: {fileID: 5447390162024020651, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_Name
+      value: Player-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.5567565
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.4311342
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586703969766897957, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
 --- !u!1 &1791547542 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1653286202048950159, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
@@ -939,8 +1082,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 555964513}
         m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
-        m_MethodName: Turn
-        m_Mode: 4
+        m_MethodName: OnSteer
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1013,8 +1156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInputManager
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 2
-  m_AllowJoining: 1
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 0
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
@@ -1044,6 +1187,17 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1890826100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4771259795512416324, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+  m_PrefabInstance: {fileID: 1486401068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5a48b0721d8484d9d0c5051622783d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerMovement
 --- !u!1 &2109213361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,3 +1299,4 @@ SceneRoots:
   - {fileID: 6671676266193537312}
   - {fileID: 2109213362}
   - {fileID: 1269431979}
+  - {fileID: 1486401068}

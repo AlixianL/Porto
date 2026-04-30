@@ -8,12 +8,13 @@ public class PlayerControllerMovement : MonoBehaviour
     private bool _canInteract;
     private bool _canControlled;
     private bool _canHandle;
-    private Controller otherController;
-    public Controller objectCurrentController;
+    private bool _isWheel;
+    private bool _isPedals;
+    [SerializeField] private CarMovement otherController;
+    public PlayerControllerMovement objectCurrentController;
     private Rigidbody _rb;
     public Vector2 direction;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -22,11 +23,7 @@ public class PlayerControllerMovement : MonoBehaviour
         _canHandle = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    void Update() { }
 
     public void FixedUpdate()
     {
@@ -46,69 +43,84 @@ public class PlayerControllerMovement : MonoBehaviour
         _rb.linearVelocity = new Vector3(Xmovement, Ymovement, Zmovement);
     }
 
-
     public void OnInteract()
     {
-        if (_canInteract)
-        {
-            print("interact");
-        }
-        if (_canHandle)
-        {
-            print("can lift other player");
-        }
+        if (_canInteract) print("interact");
+        if (_canHandle) print("can lift other player");
     }
 
     public void OnJump()
     {
         _rb.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
-        print("SaJump");
     }
 
     public void OnSwitchController()
     {
-        if (_canControlled)
+        if (_canControlled && otherController != null)
         {
-            otherController.controllerToSwitch = objectCurrentController;
-            gameObject.transform.SetParent(otherController.gameObject.transform, true);
-            otherController.enabled = true;
+            print("Switch");
+
+            direction = Vector2.zero;
+            _rb.linearVelocity = Vector3.zero;
+
+          
+            PlayerInput playerInput = GetComponent<PlayerInput>();
+            InputDevice device = playerInput.devices[0];
+
+            PlayerInput doorInput = null;
+            if (_isWheel)
+                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[0]; // SM_LDoor
+            else
+                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[1]; // SM_RDoor
+
+            if (doorInput != null)
+                doorInput.SwitchCurrentControlScheme(playerInput.currentControlScheme, device);
+
+            otherController.PlayerEnter(_isWheel);
+
+            _canControlled = false;
+            playerInput.enabled = false;
             gameObject.SetActive(false);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Interactible"))
+        if (other.CompareTag("LeftDoor"))
         {
-            _canInteract = true;
+            CarMovement car = other.GetComponentInParent<CarMovement>();
+            if (car != null)
+            {
+                otherController = car;
+                _canControlled = true;
+                _isWheel = true;
+                _isPedals = false;
+            }
         }
-        else if (other.CompareTag("Controllable"))
+        else if (other.CompareTag("RightDoor"))
         {
-            _canControlled = true;
-            otherController = other.gameObject.GetComponent<Controller>();
-            print("rentre en collision");
-        }
-        else if (other.CompareTag("Player"))
-        {
-            _canHandle = true;
+            CarMovement car = other.GetComponentInParent<CarMovement>();
+            if (car != null)
+            {
+                otherController = car;
+                _canControlled = true;
+                _isPedals = true;
+                _isWheel = false;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Interactible"))
+        if (other.CompareTag("LeftDoor") || other.CompareTag("RightDoor"))
         {
-            _canInteract = false;
-        }
-        else if (other.CompareTag("Controllable"))
-        {
-            _canControlled = false;
+            if (otherController != null)
+                otherController.PlayerExit(_isWheel);
+
             otherController = null;
-            print("sort de la collision");
-        }
-        else if (other.CompareTag("Player"))
-        {
-            _canHandle = false;
+            _canControlled = false;
+            _isWheel = false;
+            _isPedals = false;
         }
     }
 }

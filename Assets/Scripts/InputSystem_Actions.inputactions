@@ -491,7 +491,7 @@
             "id": "fd5e9f1b-47a3-4ccf-88be-330b71db5b0c",
             "actions": [
                 {
-                    "name": "Wheel",
+                    "name": "Rotation",
                     "type": "Value",
                     "id": "33bb9770-2f25-46da-a6a6-b311629ce5ce",
                     "expectedControlType": "Axis",
@@ -508,7 +508,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Wheel",
+                    "action": "Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -519,7 +519,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Wheel",
+                    "action": "Rotation",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -530,7 +530,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Wheel",
+                    "action": "Rotation",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -541,7 +541,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Wheel",
+                    "action": "Rotation",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
@@ -594,7 +594,7 @@
                 {
                     "name": "",
                     "id": "145996a0-8e85-4451-ac03-7e182a07721d",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
