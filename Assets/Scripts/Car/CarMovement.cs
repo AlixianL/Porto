@@ -133,7 +133,7 @@ public class CarMovement : MonoBehaviour
         }
     }
 
-    public void Acceleration(float direction)
+    public void OnAcceleration(float direction)
     {
         float result = _actualAcceleration + _acceleration * Time.fixedDeltaTime;
         _actualAcceleration = Mathf.Clamp(result, 0f, _maxSpeed);
@@ -145,7 +145,7 @@ public class CarMovement : MonoBehaviour
         _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, tmp, _rb.linearVelocity.z);
     }
 
-    public void Decelerate(float direction)
+    public void OnDecelerate(float direction)
     {
         float result = _actualAcceleration - _acceleration * Time.fixedDeltaTime;
         _actualAcceleration = Mathf.Clamp(result, 0f, _maxSpeed);
@@ -157,7 +157,7 @@ public class CarMovement : MonoBehaviour
         _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, tmp, _rb.linearVelocity.z);
     }
 
-    public void Break(float direction)
+    public void OnBreak(float direction)
     {
         float result = _actualAcceleration - _breakForce * Time.fixedDeltaTime;
         _actualAcceleration = Mathf.Clamp(result, 0f, _maxSpeed);
@@ -169,13 +169,13 @@ public class CarMovement : MonoBehaviour
         _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, tmp, _rb.linearVelocity.z);
     }
 
-    public void Turn(float axis)
+    public void OnTurn(float axis)
     {
         float Yrotation = gameObject.transform.eulerAngles.y + axis * _rotationSpeed * (_actualSpeed / 10) * Time.fixedDeltaTime;
         gameObject.transform.eulerAngles = new Vector3(0f, Yrotation ,0f);
     }
 
-    private void Jump()
+    private void OnJump()
     {
         _rb.AddForce(new Vector3(0f,_jumpForce,0f), ForceMode.Impulse);
     }
