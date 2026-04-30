@@ -35,6 +35,8 @@ public class CarMovement : MonoBehaviour
     private int _playersInCar = 0;
     public CameraManager cameraManager;
 
+    public AudioSource audioSource;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -194,4 +196,16 @@ public class CarMovement : MonoBehaviour
     {
         if (other.CompareTag("Level")) isInLevel = false;
     }
+
+    public void OnKlaxon()
+    {
+        print("fahhhhhhhh");
+        audioSource.Play();
+    }
+
+   
+   
+
+    
+
 }
