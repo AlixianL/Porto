@@ -8,17 +8,10 @@ public class WheelController : Controller
     [SerializeField] private float _delayJumpInput;
     private BoxCollider _collider;
 
-    public override void Start()
-    {
-    }
+ 
 
     public void OnEnable()
     {
-        if (!isKeyboard)
-        {
-            gamepad = Gamepad.all[indexGamepad];
-        }
-        _collider = GetComponent<BoxCollider>();
 
         _carMovement._wheelController = true;
         _collider.enabled = false;
