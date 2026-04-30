@@ -763,6 +763,10 @@ PrefabInstance:
       propertyPath: objectCurrentController
       value: 
       objectReference: {fileID: 1307938087}
+    - target: {fileID: 5148599174306912049, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b6dc0440ead77a74aa4a825a529b0228, type: 2}
     - target: {fileID: 5447390162024020651, guid: ca440be4f3d05184fbef794c9ce8429c, type: 3}
       propertyPath: m_Name
       value: Player-1
@@ -967,6 +971,10 @@ PrefabInstance:
       propertyPath: objectCurrentController
       value: 
       objectReference: {fileID: 1890826100}
+    - target: {fileID: 5148599174306912049, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f5aa7d12e00f9f441adf86e54de77fa0, type: 2}
     - target: {fileID: 5447390162024020651, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
       propertyPath: m_Name
       value: Player-2
