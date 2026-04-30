@@ -116,6 +116,7 @@ public class Controller : MonoBehaviour
     #endregion
 
     #region Gamepad
+    //GamePadVisual
     public virtual void GamepadManager()
     {
         Horizontal(gamepad.leftStick.value);
