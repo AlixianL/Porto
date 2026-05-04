@@ -7,6 +7,10 @@ TagManager:
   - Interactible
   - Controllable
   - Ground
+  - Level
+  - CarMovement
+  - LeftDoor
+  - RightDoor
   layers:
   - Default
   - TransparentFX

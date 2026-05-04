@@ -1,16 +1,34 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PedalsController : Controller
 {
     [SerializeField] private CarMovement _carMovement;
     [SerializeField] private float _delayJumpInput;
+    private BoxCollider _collider;
 
     public override void Start()
     {
-        base.Start();
-        otherController = this;
+    }
+
+    public void OnEnable()
+    {
+        if (!isKeyboard)
+        {
+            gamepad = Gamepad.all[indexGamepad];
+        }
+        _collider = GetComponent<BoxCollider>();
+
+        _carMovement._pedalsController = true;
+        _collider.enabled = false;
+
+        if (_carMovement._wheelController)
+        {
+            _carMovement.cameraManager.ChangeCamera();
+        }
+        print("Pedals enabled");
     }
 
     // Update is called once per frame
@@ -36,9 +54,19 @@ public class PedalsController : Controller
         }
     }
 
-    public override void Horizontal(Vector2 direction)
+    public override void SwitchController()
     {
-        _carMovement.axis = direction.x;
+        if ( _carMovement.isInLevel)
+        {
+            _collider.enabled = true;
+            _carMovement._pedalsController = false;
+            if (_carMovement._wheelController)
+            {
+                _carMovement.cameraManager.ChangeCamera();
+            }
+            transform.GetChild(0).gameObject.SetActive(true);
+            base.SwitchController();
+        }
     }
 
     public override void PositiveForce()
