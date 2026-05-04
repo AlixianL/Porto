@@ -11,18 +11,14 @@ public class ObjectThrower : MonoBehaviour
     private Rigidbody heldRb;
     private Collider heldCol;
     [SerializeField] private ThrowDirection throwDirection;
-
+    [SerializeField] private float actionCooldown = 0.25f;
+    private float nextActionTime;
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (heldObject == null)
-                TryPickObject();
-            else
-                ThrowObject();
-        }
+        
+
     }
 
     void TryPickObject()
@@ -46,6 +42,7 @@ public class ObjectThrower : MonoBehaviour
 
     void PickObject(GameObject obj)
     {
+        TutorialManager.Instance?.ValidateGrabObject();
         ThrowableObject throwable = obj.GetComponent<ThrowableObject>();
 
         if (throwable != null && throwable.IsSnapped)
@@ -68,6 +65,7 @@ public class ObjectThrower : MonoBehaviour
 
     void ThrowObject()
     {
+        TutorialManager.Instance?.ValidateThrowObject();
         // Départenter AVANT de réactiver la physique
         heldObject.transform.SetParent(null);
         if (heldCol != null)
@@ -88,6 +86,20 @@ public class ObjectThrower : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, pickupRange);
+    }
+
+
+    public void TryObjectAction()
+    {
+        if (Time.time < nextActionTime)
+            return;
+
+        nextActionTime = Time.time + actionCooldown;
+
+        if (heldObject == null)
+            TryPickObject();
+        else
+            ThrowObject();
     }
 
     void LateUpdate()

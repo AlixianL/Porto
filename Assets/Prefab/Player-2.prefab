@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5586703969766897957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5373165554696080100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079376825860198523}
+  m_Layer: 0
+  m_Name: CarryPointP2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079376825860198523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373165554696080100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.46, z: 2.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5586703969766897957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5447390162024020651
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +77,10 @@ GameObject:
   - component: {fileID: 4106124333098827042}
   - component: {fileID: -4870897974616292779}
   - component: {fileID: 4771259795512416324}
-  m_Layer: 0
+  - component: {fileID: 3297590550149013612}
+  - component: {fileID: 896693054278062420}
+  - component: {fileID: 3929498876588659058}
+  m_Layer: 7
   m_Name: Player-2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -67,6 +101,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 473868932690699030}
+  - {fileID: 1079376825860198523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3170862149508263450
@@ -323,3 +358,59 @@ MonoBehaviour:
   otherController: {fileID: 0}
   objectCurrentController: {fileID: 4771259795512416324}
   direction: {x: 0, y: 0}
+--- !u!114 &3297590550149013612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37c57701a9969e4c8da1f29cf72efc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectThrower
+  throwPoint: {fileID: 473868932690699030}
+  throwForce: 8
+  pickupRange: 1.5
+  pickupLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  throwDirection: {fileID: 896693054278062420}
+--- !u!114 &896693054278062420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df153dc5cb1e7db45bd2440526286d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowDirection
+  throwPoint: {fileID: 473868932690699030}
+  throwPointDistance: 1
+  throwPointHeight: 1
+--- !u!114 &3929498876588659058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1d96f9a0dce4a4da7ad0cd9027823b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCarryThrower
+  carryPoint: {fileID: 1079376825860198523}
+  grabRange: 1.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  carryDistance: 2
+  carryHeight: 1.2
+  throwForwardForce: 10
+  throwUpForce: 6
+  movementDisableDuration: 2.5
