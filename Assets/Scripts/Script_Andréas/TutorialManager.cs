@@ -5,8 +5,10 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Instance;
 
     [SerializeField] private TutorialStepUI[] stepsUI;
+    [SerializeField] private float validationDelay = 0.4f;
 
     private int currentStep = 0;
+    private bool isTransitioning = false;
 
     void Awake()
     {
@@ -33,32 +35,45 @@ public class TutorialManager : MonoBehaviour
     public void ValidateThrowObject() => ValidateStep(2);
     public void ValidateGrabPlayer() => ValidateStep(3);
     public void ValidateThrowPlayer() => ValidateStep(4);
-    public void ValidateCar() => ValidateStep(5);
+    public void ValidateCarLeft() => ValidateStep(5);
+    public void ValidateCarRight() => ValidateStep(6);
 
     private void ValidateStep(int stepIndex)
     {
+        if (isTransitioning)
+            return;
+
+        if (currentStep < 0 || currentStep >= stepsUI.Length)
+            return;
+
         if (stepIndex != currentStep)
             return;
 
-        if (currentStep >= stepsUI.Length)
-            return;
+        isTransitioning = true;
 
         stepsUI[currentStep].Validate();
 
-        int previousStep = currentStep;
-        currentStep++;
-
-        Invoke(nameof(ShowNextStep), 0.4f);
-
-        stepsUI[previousStep].gameObject.SetActive(false);
+        Invoke(nameof(HideCurrentAndShowNextStep), validationDelay);
     }
 
-    private void ShowNextStep()
+    private void HideCurrentAndShowNextStep()
     {
-        if (currentStep >= stepsUI.Length)
+        if (currentStep < 0 || currentStep >= stepsUI.Length)
             return;
+
+        stepsUI[currentStep].gameObject.SetActive(false);
+
+        currentStep++;
+
+        if (currentStep >= stepsUI.Length)
+        {
+            Debug.Log("Tutoriel terminé");
+            return;
+        }
 
         stepsUI[currentStep].gameObject.SetActive(true);
         stepsUI[currentStep].SetCurrent();
+
+        isTransitioning = false;
     }
 }
