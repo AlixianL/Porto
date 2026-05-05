@@ -2,15 +2,26 @@ using UnityEngine;
 
 public class PuzzleValidator : MonoBehaviour
 {
-    [SerializeField] private int requiredObjects = 3;
+    [SerializeField] private int requiredObjects = 4;
 
-    private int currentObjects;
+    private int currentObjects = 0;
+
+    public bool IsPuzzleValidated { get; private set; }
+
+    private void Start()
+    {
+        IsPuzzleValidated = false;
+        Debug.Log("PuzzleValidator initialisé. Required Objects = " + requiredObjects);
+    }
 
     public void RegisterObjectSnapped()
     {
+        if (IsPuzzleValidated)
+            return;
+
         currentObjects++;
 
-        Debug.Log("Valises placées : " + currentObjects + " / " + requiredObjects);
+        Debug.Log("Objet snap validé : " + currentObjects + " / " + requiredObjects);
 
         if (currentObjects >= requiredObjects)
         {
@@ -18,8 +29,9 @@ public class PuzzleValidator : MonoBehaviour
         }
     }
 
-    void ValidatePuzzle()
+    private void ValidatePuzzle()
     {
-        Debug.Log("Puzzle validé ! Passage à la phase voiture possible.");
+        IsPuzzleValidated = true;
+        Debug.Log("PUZZLE VALISES VALIDÉ : voiture accessible.");
     }
 }

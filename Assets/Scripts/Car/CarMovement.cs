@@ -203,9 +203,21 @@ public class CarMovement : MonoBehaviour
         audioSource.Play();
     }
 
-   
-   
+    public void ResetCarMovement()
+    {
+        forwardInput = false;
+        backwardInput = false;
+        axis = 0f;
+        jumpPedal = false;
+        jumpWheel = false;
 
-    
+        _actualAcceleration = 0f;
+        _actualSpeed = 0f;
+        _direction = 0f;
+    }
+
+
+
+
 
 }

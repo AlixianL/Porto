@@ -16,7 +16,10 @@ public class SnapZone : MonoBehaviour
     {
         ThrowableObject throwable = other.GetComponent<ThrowableObject>();
 
-        if (throwable == null || throwable.IsSnapped)
+        if (throwable == null)
+            return;
+
+        if (throwable.IsSnapped)
             return;
 
         int index = GetFreeSlot();
@@ -26,6 +29,9 @@ public class SnapZone : MonoBehaviour
 
         throwable.SnapTo(snapPoints[index]);
         occupied[index] = true;
+
+       
+        TutorialManager.Instance?.ValidatePutSuitcase();
 
         if (puzzleValidator != null)
             puzzleValidator.RegisterObjectSnapped();

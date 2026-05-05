@@ -12,7 +12,14 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
@@ -35,8 +42,9 @@ public class TutorialManager : MonoBehaviour
     public void ValidateThrowObject() => ValidateStep(2);
     public void ValidateGrabPlayer() => ValidateStep(3);
     public void ValidateThrowPlayer() => ValidateStep(4);
-    public void ValidateCarLeft() => ValidateStep(5);
-    public void ValidateCarRight() => ValidateStep(6);
+    public void ValidatePutSuitcase() => ValidateStep(5);
+    public void ValidateCarLeft() => ValidateStep(6);
+    public void ValidateCarRight() => ValidateStep(7);
 
     private void ValidateStep(int stepIndex)
     {
