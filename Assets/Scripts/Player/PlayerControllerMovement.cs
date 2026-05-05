@@ -14,6 +14,8 @@ public class PlayerControllerMovement : MonoBehaviour
     public PlayerControllerMovement objectCurrentController;
     private Rigidbody _rb;
     public Vector2 direction;
+    private PlayerCarryThrower _carryThrower;
+    private ObjectThrower _objectThrower;
 
     void Start()
     {
@@ -21,6 +23,8 @@ public class PlayerControllerMovement : MonoBehaviour
         _canInteract = false;
         _canControlled = false;
         _canHandle = false;
+        _carryThrower = GetComponent<PlayerCarryThrower>();
+        _objectThrower = GetComponent<ObjectThrower>();
     }
 
     void Update() { }
@@ -41,12 +45,30 @@ public class PlayerControllerMovement : MonoBehaviour
         float Ymovement = _rb.linearVelocity.y;
         float Zmovement = direction.y * _movementSpeed * Time.fixedDeltaTime;
         _rb.linearVelocity = new Vector3(Xmovement, Ymovement, Zmovement);
+        if (direction.sqrMagnitude > 0.1f)
+        {
+            TutorialManager.Instance?.ValidateMove();
+        }
     }
 
     public void OnInteract()
     {
-        if (_canInteract) print("interact");
-        if (_canHandle) print("can lift other player");
+        {
+            if (_canInteract) print("interact");
+            if (_canHandle) print("can lift other player");
+
+            if (_carryThrower != null)
+                _carryThrower.TryCarryAction();
+
+            if (_canInteract)
+                print("interact");
+
+            if (_canHandle)
+                print("can lift other player");
+            
+            if (_objectThrower != null)
+                _objectThrower.TryObjectAction();
+        }
     }
 
     public void OnJump()
