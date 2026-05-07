@@ -15,10 +15,22 @@ public class PlayerCarryThrower : MonoBehaviour
     [SerializeField] private float carryHeight = 1.2f;
 
     [Header("Throw")]
-    [SerializeField] private float throwForwardForce = 12f;
-    [SerializeField] private float throwUpForce = 5f;
+    [SerializeField] private float throwForwardForce = 7f;
+    [SerializeField] private float throwUpForce = 5.8f;
     [SerializeField] private float movementDisableDuration = 1f;
-    [SerializeField] private float actionCooldown = 0.2f;
+
+    [Header("Landing Preview")]
+    [SerializeField] private GameObject landingIndicator;
+    [SerializeField] private LayerMask landingGroundLayer;
+    [SerializeField] private float landingPreviewDistanceMultiplier = 1f;
+    [SerializeField] private float landingPreviewHeightOffset = 0.02f;
+    [SerializeField] private float raycastStartHeight = 20f;
+    [SerializeField] private float raycastDistance = 50f;
+
+    [Header("Input Protection")]
+    [SerializeField] private float actionCooldown = 0.25f;
+
+    private float nextActionTime;
 
     private PlayerMovement carrierMovement;
     private PlayerControllerMovement carrierControllerMovement;
@@ -32,22 +44,23 @@ public class PlayerCarryThrower : MonoBehaviour
     private PlayerControllerMovement carriedControllerMovement;
 
     private Vector3 lastDirection = Vector3.forward;
-    
-    private float nextActionTime;
 
-    void Start()
+    private void Start()
     {
         carrierMovement = GetComponent<PlayerMovement>();
         carrierControllerMovement = GetComponent<PlayerControllerMovement>();
         carrierCol = GetComponent<Collider>();
+
+        if (landingIndicator != null)
+            landingIndicator.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         UpdateCarryDirection();
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         UpdateCarryPointPosition();
 
@@ -56,6 +69,8 @@ public class PlayerCarryThrower : MonoBehaviour
             carriedPlayer.transform.position = carryPoint.position;
             carriedPlayer.transform.rotation = carryPoint.rotation;
         }
+
+        UpdateLandingPreview();
     }
 
     public void TryCarryAction()
@@ -71,7 +86,7 @@ public class PlayerCarryThrower : MonoBehaviour
             ThrowPlayer();
     }
 
-    void UpdateCarryDirection()
+    private void UpdateCarryDirection()
     {
         Vector2 input = Vector2.zero;
 
@@ -86,18 +101,26 @@ public class PlayerCarryThrower : MonoBehaviour
             lastDirection = inputDirection.normalized;
     }
 
-    void UpdateCarryPointPosition()
+    private void UpdateCarryPointPosition()
     {
         if (carryPoint == null)
             return;
 
-        carryPoint.position = transform.position + lastDirection * carryDistance + Vector3.up * carryHeight;
+        carryPoint.position =
+            transform.position +
+            lastDirection * carryDistance +
+            Vector3.up * carryHeight;
+
         carryPoint.rotation = Quaternion.LookRotation(lastDirection, Vector3.up);
     }
 
-    void TryGrabPlayer()
+    private void TryGrabPlayer()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, grabRange, playerLayer);
+        Collider[] hits = Physics.OverlapSphere(
+            transform.position,
+            grabRange,
+            playerLayer
+        );
 
         foreach (Collider hit in hits)
         {
@@ -107,13 +130,10 @@ public class PlayerCarryThrower : MonoBehaviour
             GrabPlayer(hit.gameObject);
             return;
         }
-
-        Debug.Log(gameObject.name + " : aucun joueur à attraper");
     }
 
-    void GrabPlayer(GameObject target)
+    private void GrabPlayer(GameObject target)
     {
-        TutorialManager.Instance?.ValidateGrabPlayer();
         carriedPlayer = target;
         carriedRb = target.GetComponent<Rigidbody>();
         carriedCol = target.GetComponent<Collider>();
@@ -123,7 +143,6 @@ public class PlayerCarryThrower : MonoBehaviour
 
         if (carriedRb == null)
         {
-            Debug.LogError("Le joueur porté n'a pas de Rigidbody.");
             ResetCarryReferences();
             return;
         }
@@ -145,26 +164,17 @@ public class PlayerCarryThrower : MonoBehaviour
         target.transform.localPosition = Vector3.zero;
         target.transform.localRotation = Quaternion.identity;
 
-        Debug.Log(gameObject.name + " porte " + target.name);
+        TutorialManager.Instance?.ValidateGrabPlayer();
     }
 
-    void ThrowPlayer()
+    private void ThrowPlayer()
     {
-        TutorialManager.Instance?.ValidateThrowPlayer();
         GameObject playerToThrow = carriedPlayer;
         Rigidbody rbToThrow = carriedRb;
         Collider colToThrow = carriedCol;
 
         PlayerMovement movementToRestore = carriedMovement;
         PlayerControllerMovement controllerMovementToRestore = carriedControllerMovement;
-
-        Vector3 throwDirection = lastDirection;
-        throwDirection.y = 0f;
-
-        if (throwDirection.sqrMagnitude < 0.01f)
-            throwDirection = transform.forward;
-
-        throwDirection.Normalize();
 
         playerToThrow.transform.SetParent(null, true);
 
@@ -175,15 +185,12 @@ public class PlayerCarryThrower : MonoBehaviour
         if (carrierCol != null && colToThrow != null)
             Physics.IgnoreCollision(carrierCol, colToThrow, false);
 
-        Vector3 finalVelocity = new Vector3(
-            throwDirection.x * throwForwardForce,
-            throwUpForce,
-            throwDirection.z * throwForwardForce
-        );
+        rbToThrow.linearVelocity = GetThrowVelocity();
 
-        rbToThrow.linearVelocity = finalVelocity;
+        if (landingIndicator != null)
+            landingIndicator.SetActive(false);
 
-        Debug.Log(gameObject.name + " lance " + playerToThrow.name + " avec velocity : " + finalVelocity);
+        TutorialManager.Instance?.ValidateThrowPlayer();
 
         ResetCarryReferences();
 
@@ -194,7 +201,64 @@ public class PlayerCarryThrower : MonoBehaviour
         ));
     }
 
-    IEnumerator ReEnableMovementAfterThrow(
+    private Vector3 GetThrowVelocity()
+    {
+        Vector3 flatDirection = lastDirection;
+        flatDirection.y = 0f;
+
+        if (flatDirection.sqrMagnitude < 0.01f)
+            flatDirection = transform.forward;
+
+        flatDirection.Normalize();
+
+        Vector3 velocity = flatDirection * throwForwardForce;
+        velocity.y = throwUpForce;
+
+        return velocity;
+    }
+
+    private void UpdateLandingPreview()
+    {
+        if (landingIndicator == null)
+            return;
+
+        if (carriedPlayer == null)
+        {
+            landingIndicator.SetActive(false);
+            return;
+        }
+
+        Vector3 velocity = GetThrowVelocity();
+        Vector3 flatVelocity = new Vector3(velocity.x, 0f, velocity.z);
+
+        Vector3 predictedPosition =
+            carryPoint.position +
+            flatVelocity * landingPreviewDistanceMultiplier;
+
+        Vector3 rayStart =
+            predictedPosition +
+            Vector3.up * raycastStartHeight;
+
+        if (Physics.Raycast(
+            rayStart,
+            Vector3.down,
+            out RaycastHit hit,
+            raycastDistance,
+            landingGroundLayer))
+        {
+            landingIndicator.transform.position =
+                hit.point + Vector3.up * landingPreviewHeightOffset;
+
+            landingIndicator.transform.rotation = Quaternion.identity;
+            landingIndicator.SetActive(true);
+        }
+        else
+        {
+            landingIndicator.SetActive(false);
+        }
+    }
+
+    private IEnumerator ReEnableMovementAfterThrow(
         PlayerMovement movement,
         PlayerControllerMovement controllerMovement,
         float delay
@@ -209,7 +273,7 @@ public class PlayerCarryThrower : MonoBehaviour
             controllerMovement.enabled = true;
     }
 
-    void ResetCarryReferences()
+    private void ResetCarryReferences()
     {
         carriedPlayer = null;
         carriedRb = null;
@@ -218,7 +282,7 @@ public class PlayerCarryThrower : MonoBehaviour
         carriedControllerMovement = null;
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, grabRange);

@@ -7,15 +7,20 @@ public class RespawnablePlayer : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rb;
+    private Collider col;
+    private ObjectThrower objectThrower;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+        objectThrower = GetComponent<ObjectThrower>();
+
         startPosition = transform.position;
         startRotation = transform.rotation;
     }
 
-    void Update()
+    private void Update()
     {
         if (transform.position.y <= deathY)
             Respawn();
@@ -23,7 +28,8 @@ public class RespawnablePlayer : MonoBehaviour
 
     public void Respawn()
     {
-        RespawnHeldObjectIfAny();
+        if (objectThrower != null)
+            objectThrower.ForceDropAndRespawnHeldObject();
 
         transform.SetParent(null, true);
         transform.position = startPosition;
@@ -37,20 +43,7 @@ public class RespawnablePlayer : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        Collider col = GetComponent<Collider>();
         if (col != null)
             col.enabled = true;
-
-        Debug.Log(gameObject.name + " respawn");
-    }
-
-    private void RespawnHeldObjectIfAny()
-    {
-        ObjectThrower objectThrower = GetComponent<ObjectThrower>();
-
-        if (objectThrower == null)
-            return;
-
-        objectThrower.ForceDropAndRespawnHeldObject();
     }
 }

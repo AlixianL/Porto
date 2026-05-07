@@ -80,6 +80,8 @@ GameObject:
   - component: {fileID: 3297590550149013612}
   - component: {fileID: 896693054278062420}
   - component: {fileID: 3929498876588659058}
+  - component: {fileID: 3321422344340641685}
+  - component: {fileID: 2683610192450945373}
   m_Layer: 7
   m_Name: Player-2
   m_TagString: Player
@@ -371,7 +373,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectThrower
   throwPoint: {fileID: 473868932690699030}
-  throwForce: 8
+  throwForwardForce: 6.5
+  throwUpForce: 4.8
   pickupRange: 1.5
   pickupLayer:
     serializedVersion: 2
@@ -412,7 +415,47 @@ MonoBehaviour:
     m_Bits: 128
   carryDistance: 2
   carryHeight: 1.2
-  throwForwardForce: 10
-  throwUpForce: 6
+  throwForwardForce: 5
+  throwUpForce: 5
   movementDisableDuration: 2.5
+  landingIndicator: {fileID: 0}
+  landingGroundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  landingPreviewDistanceMultiplier: 1.2
+  landingPreviewHeightOffset: 0.05
   actionCooldown: 0.5
+--- !u!114 &3321422344340641685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb52e3861f49d543b83addb356f8a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RespawnablePlayer
+  deathY: -5
+--- !u!114 &2683610192450945373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df4f552016ca8741ac7ef0642134351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowLandingPreview
+  landingIndicator: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  predictionTime: 1.2
+  raycastHeight: 20
+  raycastDistance: 40
+  indicatorYOffset: 0.08
+  showDebugLogs: 1

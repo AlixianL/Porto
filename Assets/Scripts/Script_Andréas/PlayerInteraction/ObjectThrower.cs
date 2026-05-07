@@ -4,7 +4,8 @@ public class ObjectThrower : MonoBehaviour
 {
     [Header("Throw")]
     [SerializeField] private Transform throwPoint;
-    [SerializeField] private float throwForce = 10f;
+    [SerializeField] private float throwForwardForce = 6.5f;
+    [SerializeField] private float throwUpForce = 4.8f;
 
     [Header("Pickup")]
     [SerializeField] private float pickupRange = 1.5f;
@@ -13,26 +14,34 @@ public class ObjectThrower : MonoBehaviour
     [Header("Input Protection")]
     [SerializeField] private float actionCooldown = 0.25f;
 
+    [Header("References")]
+    [SerializeField] private ThrowDirection throwDirection;
+    
+    private ThrowLandingPreview landingPreview;
+
     private float nextActionTime;
 
     private GameObject heldObject;
     private Rigidbody heldRb;
     private Collider heldCol;
+    private Vector3 heldOriginalScale = Vector3.one;
 
-    private Vector3 heldOriginalScale;
-
-    [SerializeField] private ThrowDirection throwDirection;
+    private void Awake()
+    {
+        landingPreview = GetComponent<ThrowLandingPreview>();
+    }
 
     private void LateUpdate()
     {
-        if (heldObject != null)
-        {
-            heldObject.transform.position = throwPoint.position;
-            heldObject.transform.rotation = throwPoint.rotation;
+        if (heldObject == null)
+            return;
 
-            // Sécurité anti-scale bizarre au grab
-            heldObject.transform.localScale = heldOriginalScale;
-        }
+        heldObject.transform.position = throwPoint.position;
+        heldObject.transform.rotation = throwPoint.rotation;
+        heldObject.transform.localScale = heldOriginalScale;
+
+        if (landingPreview != null)
+            landingPreview.ShowPreview(throwPoint.position, GetThrowVelocity());
     }
 
     public void TryObjectAction()
@@ -53,18 +62,12 @@ public class ObjectThrower : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, pickupRange, pickupLayer);
 
         if (hits.Length == 0)
-        {
-            Debug.Log("Aucun objet ramassable proche");
             return;
-        }
 
         ThrowableObject throwable = hits[0].GetComponent<ThrowableObject>();
 
         if (throwable != null && throwable.IsSnapped)
-        {
-            Debug.Log("Objet déjà placé, non récupérable");
             return;
-        }
 
         PickObject(hits[0].gameObject);
     }
@@ -82,7 +85,6 @@ public class ObjectThrower : MonoBehaviour
 
         if (heldRb == null)
         {
-            Debug.LogError("Objet sans Rigidbody : " + obj.name);
             heldObject = null;
             return;
         }
@@ -103,8 +105,6 @@ public class ObjectThrower : MonoBehaviour
         obj.transform.localScale = heldOriginalScale;
 
         TutorialManager.Instance?.ValidateGrabObject();
-
-        Debug.Log("Objet ramassé : " + obj.name);
     }
 
     private void ThrowObject()
@@ -117,35 +117,36 @@ public class ObjectThrower : MonoBehaviour
 
         heldRb.detectCollisions = true;
         heldRb.isKinematic = false;
-
         heldRb.linearVelocity = Vector3.zero;
         heldRb.angularVelocity = Vector3.zero;
 
-        Vector3 direction;
+        heldRb.linearVelocity = GetThrowVelocity();
 
-        if (throwDirection != null)
-            direction = throwDirection.GetDirection() + Vector3.up * 0.3f;
-        else
-            direction = throwPoint.forward + Vector3.up * 0.3f;
-
-        direction.Normalize();
-
-        heldRb.AddForce(direction * throwForce, ForceMode.Impulse);
+        if (landingPreview != null)
+            landingPreview.HidePreview();
 
         TutorialManager.Instance?.ValidateThrowObject();
 
-        Debug.Log("Objet lancé vers : " + direction);
-
-        heldObject = null;
-        heldRb = null;
-        heldCol = null;
-        heldOriginalScale = Vector3.one;
+        ClearHeldObject();
     }
 
-    private void OnDrawGizmosSelected()
+    private Vector3 GetThrowVelocity()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
+        Vector3 flatDirection = throwDirection != null
+            ? throwDirection.GetDirection()
+            : throwPoint.forward;
+
+        flatDirection.y = 0f;
+
+        if (flatDirection.sqrMagnitude < 0.01f)
+            flatDirection = transform.forward;
+
+        flatDirection.Normalize();
+
+        Vector3 velocity = flatDirection * throwForwardForce;
+        velocity.y = throwUpForce;
+
+        return velocity;
     }
 
     public void ForceDropAndRespawnHeldObject()
@@ -156,10 +157,6 @@ public class ObjectThrower : MonoBehaviour
         GameObject objectToRespawn = heldObject;
         Rigidbody rbToRespawn = heldRb;
         Collider colToRespawn = heldCol;
-
-        heldObject = null;
-        heldRb = null;
-        heldCol = null;
 
         objectToRespawn.transform.SetParent(null, true);
 
@@ -174,9 +171,28 @@ public class ObjectThrower : MonoBehaviour
             rbToRespawn.angularVelocity = Vector3.zero;
         }
 
+        ClearHeldObject();
+
         RespawnableObject respawnable = objectToRespawn.GetComponent<RespawnableObject>();
 
         if (respawnable != null)
             respawnable.Respawn();
+
+        if (landingPreview != null)
+            landingPreview.HidePreview();
+    }
+
+    private void ClearHeldObject()
+    {
+        heldObject = null;
+        heldRb = null;
+        heldCol = null;
+        heldOriginalScale = Vector3.one;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, pickupRange);
     }
 }
