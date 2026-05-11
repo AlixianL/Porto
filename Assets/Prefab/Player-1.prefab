@@ -393,6 +393,8 @@ MonoBehaviour:
     m_Bits: 256
   landingPreviewDistanceMultiplier: 1.2
   landingPreviewHeightOffset: 0.05
+  raycastStartHeight: 20
+  raycastDistance: 50
   actionCooldown: 0.5
 --- !u!114 &1323309091900699134
 MonoBehaviour:
