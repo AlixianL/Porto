@@ -78,6 +78,7 @@ public class PlayerControllerMovement : MonoBehaviour
 
     public void OnSwitchController()
     {
+        print(" sa switch ");
         if (_canControlled && otherController != null)
         {
             print("Switch");
