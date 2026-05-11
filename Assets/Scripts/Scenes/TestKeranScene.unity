@@ -3719,6 +3719,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4870897974616292779, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 2683610192450945373, guid: 72d60eacae689e242869ffe9181e8cf5, type: 3}
       propertyPath: landingIndicator
       value: 
