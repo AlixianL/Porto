@@ -2113,6 +2113,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3203638770417544469, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 17.979
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203638770417544469, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 12.297
+      objectReference: {fileID: 0}
     - target: {fileID: 4022710982948320238, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: puzzleValidator
       value: 
