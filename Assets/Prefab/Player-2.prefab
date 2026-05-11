@@ -338,7 +338,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
     m_ActionName: 'Wheel/Klaxon[/Keyboard/g]'
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player-2
   m_SplitScreenIndex: -1
@@ -424,6 +424,8 @@ MonoBehaviour:
     m_Bits: 256
   landingPreviewDistanceMultiplier: 1.2
   landingPreviewHeightOffset: 0.05
+  raycastStartHeight: 20
+  raycastDistance: 50
   actionCooldown: 0.5
 --- !u!114 &3321422344340641685
 MonoBehaviour:
@@ -458,4 +460,4 @@ MonoBehaviour:
   raycastHeight: 20
   raycastDistance: 40
   indicatorYOffset: 0.08
-  showDebugLogs: 1
+  showDebugLogs: 0
