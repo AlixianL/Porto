@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2072600100066232944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 473868932690699030}
+  m_Layer: 0
+  m_Name: ThrowPointP2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &473868932690699030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072600100066232944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5586703969766897957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5373165554696080100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079376825860198523}
+  m_Layer: 0
+  m_Name: CarryPointP2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079376825860198523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373165554696080100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.46, z: 2.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5586703969766897957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5447390162024020651
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +77,12 @@ GameObject:
   - component: {fileID: 4106124333098827042}
   - component: {fileID: -4870897974616292779}
   - component: {fileID: 4771259795512416324}
-  m_Layer: 0
+  - component: {fileID: 3297590550149013612}
+  - component: {fileID: 896693054278062420}
+  - component: {fileID: 3929498876588659058}
+  - component: {fileID: 3321422344340641685}
+  - component: {fileID: 2683610192450945373}
+  m_Layer: 7
   m_Name: Player-2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -34,7 +101,9 @@ Transform:
   m_LocalPosition: {x: -0.99657, y: 1.67, z: 2.46024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 473868932690699030}
+  - {fileID: 1079376825860198523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3170862149508263450
@@ -70,7 +139,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f5aa7d12e00f9f441adf86e54de77fa0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -265,8 +334,12 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d0f42e29-9a76-4f26-96c2-3481c862c95d
     m_ActionName: 'Pedal/HandBreak[/Keyboard/space]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
+    m_ActionName: 'Wheel/Klaxon[/Keyboard/g]'
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player-2
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -282,8 +355,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5a48b0721d8484d9d0c5051622783d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerMovement
-  _movementSpeed: 0
-  _jumpForce: 0
+  _movementSpeed: 200
+  _jumpForce: 1
   otherController: {fileID: 0}
-  objectCurrentController: {fileID: 0}
+  objectCurrentController: {fileID: 4771259795512416324}
   direction: {x: 0, y: 0}
+--- !u!114 &3297590550149013612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37c57701a9969e4c8da1f29cf72efc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectThrower
+  throwPoint: {fileID: 473868932690699030}
+  throwForwardForce: 6.5
+  throwUpForce: 4.8
+  pickupRange: 1.5
+  pickupLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  actionCooldown: 0.25
+  throwDirection: {fileID: 896693054278062420}
+--- !u!114 &896693054278062420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df153dc5cb1e7db45bd2440526286d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowDirection
+  throwPoint: {fileID: 473868932690699030}
+  throwPointDistance: 1
+  throwPointHeight: 1
+--- !u!114 &3929498876588659058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1d96f9a0dce4a4da7ad0cd9027823b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCarryThrower
+  carryPoint: {fileID: 1079376825860198523}
+  grabRange: 1.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  carryDistance: 2
+  carryHeight: 1.2
+  throwForwardForce: 5
+  throwUpForce: 5
+  movementDisableDuration: 2.5
+  landingIndicator: {fileID: 0}
+  landingGroundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  landingPreviewDistanceMultiplier: 1.2
+  landingPreviewHeightOffset: 0.05
+  actionCooldown: 0.5
+--- !u!114 &3321422344340641685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb52e3861f49d543b83addb356f8a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RespawnablePlayer
+  deathY: -5
+--- !u!114 &2683610192450945373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df4f552016ca8741ac7ef0642134351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowLandingPreview
+  landingIndicator: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  predictionTime: 1.2
+  raycastHeight: 20
+  raycastDistance: 40
+  indicatorYOffset: 0.08
+  showDebugLogs: 1

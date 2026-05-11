@@ -1,5 +1,205 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &722100489787617268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 670196778476457688}
+  m_Layer: 0
+  m_Name: SnapPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &670196778476457688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722100489787617268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15, y: 0.35999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3203638770417544469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1326135822141958567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 771878780688058784}
+  m_Layer: 0
+  m_Name: SnapPoint (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &771878780688058784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326135822141958567}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.57, y: 0.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3203638770417544469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2206035804842135089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3203638770417544469}
+  - component: {fileID: 454732656581515023}
+  - component: {fileID: 2258976215181027485}
+  m_Layer: 0
+  m_Name: SuitcaseSnapZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3203638770417544469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206035804842135089}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.019395828, y: 1.4340003, z: -1.8299122}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6987073048208388712}
+  - {fileID: 670196778476457688}
+  - {fileID: 3920045053182443950}
+  - {fileID: 771878780688058784}
+  m_Father: {fileID: 3097983976630162893}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &454732656581515023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206035804842135089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4078d5a1ca147c54ba55c9e346690e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnapZone
+  snapPoints:
+  - {fileID: 6987073048208388712}
+  - {fileID: 670196778476457688}
+  - {fileID: 3920045053182443950}
+  - {fileID: 771878780688058784}
+  puzzleValidator: {fileID: 0}
+--- !u!65 &2258976215181027485
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206035804842135089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 1, z: 0.8}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6312329039420716994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6987073048208388712}
+  m_Layer: 0
+  m_Name: SnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6987073048208388712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6312329039420716994}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.59, y: 0.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3203638770417544469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8017520580824265966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3920045053182443950}
+  m_Layer: 0
+  m_Name: SnapPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3920045053182443950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017520580824265966}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.115, y: 0.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3203638770417544469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9047664932073535821
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +228,7 @@ Transform:
   m_GameObject: {fileID: 9047664932073535821}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 13, z: -6.8799973}
+  m_LocalPosition: {x: 0, y: 11.04, z: -9.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,7 +241,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9047664932073535821}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -153,15 +353,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.370003
+      value: 3.2823958
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.4999998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -87.22
+      value: -70.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -205,11 +405,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_TagString
-      value: CarMovement
+      value: RightDoor
       objectReference: {fileID: 0}
     - target: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_TagString
-      value: CarMovement
+      value: LeftDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8155393709488015587, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -221,6 +421,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3494592905223268860}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3203638770417544469}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
@@ -231,6 +434,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9049639283669845088}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5776406426320722582}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5915502112162841712}
     - targetCorrespondingSourceObject: {fileID: -5160706800330408983, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9098842141208529278}
@@ -242,13 +451,19 @@ PrefabInstance:
       addedObject: {fileID: 2947449942279152416}
     - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1575292852818513811}
+      addedObject: {fileID: 5829002828393534032}
+    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4022710982948320238}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5659060565063286291}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4737786916189353377}
+      addedObject: {fileID: 8611126121300688529}
+    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1304964954382733243}
     - targetCorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1546945477749964482}
@@ -309,7 +524,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.2225821, z: 1.1516707}
   m_Center: {x: -0.21071756, y: 0.00542593, z: -0.57583535}
---- !u!114 &1575292852818513811
+--- !u!114 &5829002828393534032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -337,41 +552,41 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
-    m_ActionName: 'Player-1/Move[/Keyboard/z,/Keyboard/q,/Keyboard/s,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/leftStick]'
+    m_ActionName: 'Player-1/Move[/Keyboard/z,/Keyboard/q,/Keyboard/s,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
-    m_ActionName: 'Player-1/Interact[/Keyboard/e,/Keyboard/f,/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonWest]'
+    m_ActionName: 'Player-1/Interact[/Keyboard/e,/Keyboard/f]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
-    m_ActionName: 'Player-1/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]'
+    m_ActionName: 'Player-1/Jump[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 641cd816-40e6-41b4-8c3d-04687c349290
-    m_ActionName: 'Player-1/Sprint[/Keyboard/leftShift,/XInputControllerWindows/leftStickPress]'
+    m_ActionName: 'Player-1/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 48ca5503-1bd4-4a25-a3e7-3dada8bb7573
-    m_ActionName: 'Player-2/Move[/Keyboard/z,/Keyboard/q,/Keyboard/s,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/leftStick]'
+    m_ActionName: 'Player-2/Move[/Keyboard/z,/Keyboard/q,/Keyboard/s,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e7c4cd32-6bcd-48d5-a342-10bd38c9e483
-    m_ActionName: 'Player-2/Interact[/Keyboard/e,/Keyboard/f,/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonWest]'
+    m_ActionName: 'Player-2/Interact[/Keyboard/e,/Keyboard/f]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e3ca900d-d57a-4078-ace3-5a3291d17009
-    m_ActionName: 'Player-2/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]'
+    m_ActionName: 'Player-2/Jump[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 4da14897-b345-43ea-a4df-4996edf4b32c
-    m_ActionName: 'Player-2/Sprint[/Keyboard/leftShift,/XInputControllerWindows/leftStickPress]'
+    m_ActionName: 'Player-2/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7999276669697645174}
         m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
-        m_MethodName: OnTurn
-        m_Mode: 4
+        m_MethodName: OnSteer
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -381,24 +596,53 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 33bb9770-2f25-46da-a6a6-b311629ce5ce
-    m_ActionName: 'Wheel/Wheel[/XInputControllerWindows/leftStick/x,/Keyboard/a,/Keyboard/d]'
+    m_ActionName: 'Wheel/Wheel[/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7d6eeb98-64b8-4b2b-9d18-705209e66d03
-    m_ActionName: 'Pedal/Accelerator[/Keyboard/z,/XInputControllerWindows/rightShoulder]'
+    m_ActionName: 'Pedal/Accelerator[/Keyboard/z]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e31419a9-53be-4553-b209-909f23af804d
-    m_ActionName: 'Pedal/Break[/Keyboard/s,/XInputControllerWindows/leftShoulder]'
+    m_ActionName: 'Pedal/Break[/Keyboard/s]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: d0f42e29-9a76-4f26-96c2-3481c862c95d
-    m_ActionName: 'Pedal/HandBreak[/Keyboard/space,/XInputControllerWindows/buttonEast]'
+    m_ActionName: 'Pedal/HandBreak[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7999276669697645174}
+        m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
+        m_MethodName: OnKlaxon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
+    m_ActionName: 'Wheel/Klaxon[/Keyboard/g,/XInputControllerWindows/dpad/up]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Wheel
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4022710982948320238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653286202048950159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36258571c61ccab47a26ed172d51e732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarEntryGate
+  puzzleValidator: {fileID: 0}
 --- !u!1 &2429006658892255095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
@@ -434,6 +678,7 @@ MonoBehaviour:
   _wheelController: 0
   _pedalsController: 0
   cameraManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!54 &5549776700316874626
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -483,6 +728,34 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2259196571584908920, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+--- !u!114 &5776406426320722582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429006658892255095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8b797217b79ba43b6e5d820381516a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarTutorialValidator
+  carMovement: {fileID: 7999276669697645174}
+  steerDeadZone: 0.1
+--- !u!114 &5915502112162841712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429006658892255095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b15ca5cee228c842998a2ffabeb3b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RespawnableCar
+  deathY: -5
+  respawnFreezeDuration: 0.25
 --- !u!4 &3097983976630162893 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
@@ -514,7 +787,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.2225821, z: 1.1516706}
   m_Center: {x: 0.20151749, y: 0.00542593, z: -0.5758353}
---- !u!114 &4737786916189353377
+--- !u!114 &8611126121300688529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -579,8 +852,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7999276669697645174}
         m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
-        m_MethodName: OnAcceleration
-        m_Mode: 4
+        m_MethodName: OnAccelerator
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -595,8 +868,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7999276669697645174}
         m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
-        m_MethodName: OnBreak
-        m_Mode: 4
+        m_MethodName: OnBreakInput
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -608,26 +881,31 @@ MonoBehaviour:
     m_ActionId: e31419a9-53be-4553-b209-909f23af804d
     m_ActionName: 'Pedal/Break[/Keyboard/s]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7999276669697645174}
-        m_TargetAssemblyTypeName: CarMovement, Assembly-CSharp
-        m_MethodName: OnBreak
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: d0f42e29-9a76-4f26-96c2-3481c862c95d
     m_ActionName: 'Pedal/HandBreak[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
+    m_ActionName: 'Wheel/Klaxon[/Keyboard/g,/XInputControllerWindows/dpad/up]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Pedal
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1304964954382733243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763820592031617867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36258571c61ccab47a26ed172d51e732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarEntryGate
+  puzzleValidator: {fileID: 0}
 --- !u!1 &4190227222551690773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
