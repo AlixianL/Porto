@@ -24,8 +24,11 @@ public class PlayerControllerMovement : MonoBehaviour
     private PlayerCarryThrower _playerCarryThrower;
     private TwoPlayerCarryInteractor _twoPlayerCarryInteractor;
 
+
+
     void Start()
     {
+        
         _rb = GetComponent<Rigidbody>();
 
         _objectThrower = GetComponent<ObjectThrower>();
@@ -91,6 +94,7 @@ public class PlayerControllerMovement : MonoBehaviour
         if (_canControlled && otherController != null)
         {
             print("Switch");
+           
 
             direction = Vector2.zero;
             _rb.linearVelocity = Vector3.zero;

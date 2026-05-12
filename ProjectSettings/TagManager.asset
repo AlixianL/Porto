@@ -11,6 +11,7 @@ TagManager:
   - CarMovement
   - LeftDoor
   - RightDoor
+  - Grass
   layers:
   - Default
   - TransparentFX

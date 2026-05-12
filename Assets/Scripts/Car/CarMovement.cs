@@ -197,11 +197,7 @@ public class CarMovement : MonoBehaviour
         if (other.CompareTag("Level")) isInLevel = false;
     }
 
-    public void OnKlaxon()
-    {
-        print("fahhhhhhhh");
-        audioSource.Play();
-    }
+    
 
     public void ResetCarMovement()
     {
