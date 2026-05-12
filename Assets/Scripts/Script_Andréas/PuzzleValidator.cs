@@ -8,12 +8,6 @@ public class PuzzleValidator : MonoBehaviour
 
     public bool IsPuzzleValidated { get; private set; }
 
-    private void Start()
-    {
-        IsPuzzleValidated = false;
-        Debug.Log("PuzzleValidator initialisé. Required Objects = " + requiredObjects);
-    }
-
     public void RegisterObjectSnapped()
     {
         if (IsPuzzleValidated)
@@ -21,7 +15,7 @@ public class PuzzleValidator : MonoBehaviour
 
         currentObjects++;
 
-        Debug.Log("Objet snap validé : " + currentObjects + " / " + requiredObjects);
+        Debug.Log("Valises placées : " + currentObjects + " / " + requiredObjects);
 
         if (currentObjects >= requiredObjects)
         {
@@ -32,6 +26,15 @@ public class PuzzleValidator : MonoBehaviour
     private void ValidatePuzzle()
     {
         IsPuzzleValidated = true;
-        Debug.Log("PUZZLE VALISES VALIDÉ : voiture accessible.");
+        Debug.Log("Puzzle valises validé.");
+    }
+
+    public void DebugValidatePuzzle()
+    {
+        if (IsPuzzleValidated)
+            return;
+
+        currentObjects = requiredObjects;
+        ValidatePuzzle();
     }
 }

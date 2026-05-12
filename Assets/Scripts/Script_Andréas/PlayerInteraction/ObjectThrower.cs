@@ -25,6 +25,8 @@ public class ObjectThrower : MonoBehaviour
     private Rigidbody heldRb;
     private Collider heldCol;
     private Vector3 heldOriginalScale = Vector3.one;
+    
+
 
     private void Awake()
     {
