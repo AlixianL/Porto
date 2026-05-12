@@ -5,29 +5,37 @@ public class PlayerControllerMovement : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _jumpForce;
+
     private bool _canInteract;
     private bool _canControlled;
     private bool _canHandle;
+
     private bool _isWheel;
     private bool _isPedals;
+
     [SerializeField] private CarMovement otherController;
+
     public PlayerControllerMovement objectCurrentController;
+
     private Rigidbody _rb;
     public Vector2 direction;
-    private PlayerCarryThrower _carryThrower;
+
     private ObjectThrower _objectThrower;
+    private PlayerCarryThrower _playerCarryThrower;
+    private TwoPlayerCarryInteractor _twoPlayerCarryInteractor;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _objectThrower = GetComponent<ObjectThrower>();
+        _playerCarryThrower = GetComponent<PlayerCarryThrower>();
+        _twoPlayerCarryInteractor = GetComponent<TwoPlayerCarryInteractor>();
+
         _canInteract = false;
         _canControlled = false;
         _canHandle = false;
-        _carryThrower = GetComponent<PlayerCarryThrower>();
-        _objectThrower = GetComponent<ObjectThrower>();
     }
-
-    void Update() { }
 
     public void FixedUpdate()
     {
@@ -36,41 +44,41 @@ public class PlayerControllerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-
         direction = context.ReadValue<Vector2>();
 
+        if (direction.sqrMagnitude > 0.1f)
+            TutorialManager.Instance?.ValidateMove();
     }
-
     private void Move()
     {
         float Xmovement = direction.x * _movementSpeed * Time.fixedDeltaTime;
         float Ymovement = _rb.linearVelocity.y;
         float Zmovement = direction.y * _movementSpeed * Time.fixedDeltaTime;
+
         _rb.linearVelocity = new Vector3(Xmovement, Ymovement, Zmovement);
-        if (direction.sqrMagnitude > 0.1f)
-        {
-            TutorialManager.Instance?.ValidateMove();
-        }
     }
 
     public void OnInteract()
     {
+        if (_twoPlayerCarryInteractor != null)
         {
-            if (_canInteract) print("interact");
-            if (_canHandle) print("can lift other player");
+            bool handledHeavyObject = _twoPlayerCarryInteractor.TryHeavyCarryAction();
 
-            if (_carryThrower != null)
-                _carryThrower.TryCarryAction();
-
-            if (_canInteract)
-                print("interact");
-
-            if (_canHandle)
-                print("can lift other player");
-            
-            if (_objectThrower != null)
-                _objectThrower.TryObjectAction();
+            if (handledHeavyObject)
+                return;
         }
+
+        if (_objectThrower != null)
+            _objectThrower.TryObjectAction();
+
+        if (_playerCarryThrower != null)
+            _playerCarryThrower.TryCarryAction();
+
+        if (_canInteract)
+            print("interact");
+
+        if (_canHandle)
+            print("can lift other player");
     }
 
     public void OnJump()
@@ -87,15 +95,15 @@ public class PlayerControllerMovement : MonoBehaviour
             direction = Vector2.zero;
             _rb.linearVelocity = Vector3.zero;
 
-          
             PlayerInput playerInput = GetComponent<PlayerInput>();
             InputDevice device = playerInput.devices[0];
 
             PlayerInput doorInput = null;
+
             if (_isWheel)
-                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[0]; // SM_LDoor
+                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[0];
             else
-                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[1]; // SM_RDoor
+                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[1];
 
             if (doorInput != null)
                 doorInput.SwitchCurrentControlScheme(playerInput.currentControlScheme, device);
@@ -107,12 +115,12 @@ public class PlayerControllerMovement : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LeftDoor"))
         {
             CarMovement car = other.GetComponentInParent<CarMovement>();
+
             if (car != null)
             {
                 otherController = car;
@@ -124,6 +132,7 @@ public class PlayerControllerMovement : MonoBehaviour
         else if (other.CompareTag("RightDoor"))
         {
             CarMovement car = other.GetComponentInParent<CarMovement>();
+
             if (car != null)
             {
                 otherController = car;

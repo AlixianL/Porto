@@ -14,7 +14,7 @@ public class SnapZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        ThrowableObject throwable = other.GetComponent<ThrowableObject>();
+        ThrowableObject throwable = other.GetComponentInParent<ThrowableObject>();
 
         if (throwable == null)
             return;
@@ -27,10 +27,14 @@ public class SnapZone : MonoBehaviour
         if (index == -1)
             return;
 
+        TwoPlayerCarryObject heavyObject = other.GetComponentInParent<TwoPlayerCarryObject>();
+
+        if (heavyObject != null)
+            heavyObject.ForceReleaseAll();
+
         throwable.SnapTo(snapPoints[index]);
         occupied[index] = true;
 
-       
         TutorialManager.Instance?.ValidatePutSuitcase();
 
         if (puzzleValidator != null)
