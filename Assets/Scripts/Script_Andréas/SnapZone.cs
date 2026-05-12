@@ -1,20 +1,22 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SnapZone : MonoBehaviour
 {
+    [Header("Snap Points")]
     [SerializeField] private Transform[] snapPoints;
-    [SerializeField] private PuzzleValidator puzzleValidator;
+
+    [Header("Events")]
+    public UnityEvent OnObjectSnapped;
 
     private bool[] occupied;
 
-
-
-    void Awake()
+    private void Awake()
     {
         occupied = new bool[snapPoints.Length];
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         ThrowableObject throwable = other.GetComponentInParent<ThrowableObject>();
 
@@ -24,33 +26,24 @@ public class SnapZone : MonoBehaviour
         if (throwable.IsSnapped)
             return;
 
-        int index = GetFreeSlot();
+        int freeSlotIndex = GetFreeSlotIndex();
 
-        if (index == -1)
+        if (freeSlotIndex == -1)
             return;
 
-        TwoPlayerCarryObject heavyObject = other.GetComponentInParent<TwoPlayerCarryObject>();
+        TwoPlayerCarryObject heavyObject =
+            other.GetComponentInParent<TwoPlayerCarryObject>();
 
         if (heavyObject != null)
             heavyObject.ForceReleaseAll();
 
-        throwable.SnapTo(snapPoints[index]);
-        occupied[index] = true;
+        throwable.SnapTo(snapPoints[freeSlotIndex]);
+        occupied[freeSlotIndex] = true;
 
-        TutorialManager.Instance?.ValidatePutSuitcase();
-
-        if (puzzleValidator != null)
-            puzzleValidator.RegisterObjectSnapped();
+        OnObjectSnapped?.Invoke();
     }
 
-    public void ValidateZone()
-    {
-
-
-
-    }
-
-    int GetFreeSlot()
+    private int GetFreeSlotIndex()
     {
         for (int i = 0; i < occupied.Length; i++)
         {

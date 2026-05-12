@@ -116,7 +116,9 @@ MonoBehaviour:
   - {fileID: 670196778476457688}
   - {fileID: 3920045053182443950}
   - {fileID: 771878780688058784}
-  puzzleValidator: {fileID: 0}
+  OnObjectSnapped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &2258976215181027485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -452,18 +454,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5829002828393534032}
-    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4022710982948320238}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5659060565063286291}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8611126121300688529}
-    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1304964954382733243}
     - targetCorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1546945477749964482}
@@ -630,19 +626,6 @@ MonoBehaviour:
   m_DefaultActionMap: Wheel
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4022710982948320238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653286202048950159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36258571c61ccab47a26ed172d51e732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarEntryGate
-  puzzleValidator: {fileID: 0}
 --- !u!1 &2429006658892255095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
@@ -893,19 +876,6 @@ MonoBehaviour:
   m_DefaultActionMap: Pedal
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1304964954382733243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3763820592031617867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36258571c61ccab47a26ed172d51e732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarEntryGate
-  puzzleValidator: {fileID: 0}
 --- !u!1 &4190227222551690773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}

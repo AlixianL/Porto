@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCarryThrower : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class PlayerCarryThrower : MonoBehaviour
 
     [Header("Input Protection")]
     [SerializeField] private float actionCooldown = 0.25f;
+
+    [Header("Events")]
+    public UnityEvent OnPlayerGrabbed;
+    public UnityEvent OnPlayerThrown;
 
     private float nextActionTime;
 
@@ -73,17 +78,18 @@ public class PlayerCarryThrower : MonoBehaviour
         UpdateLandingPreview();
     }
 
-    public void TryCarryAction()
+    public bool TryCarryAction()
     {
         if (Time.time < nextActionTime)
-            return;
+            return false;
 
         nextActionTime = Time.time + actionCooldown;
 
         if (carriedPlayer == null)
-            TryGrabPlayer();
-        else
-            ThrowPlayer();
+            return TryGrabPlayer();
+
+        ThrowPlayer();
+        return true;
     }
 
     private void UpdateCarryDirection()
@@ -114,7 +120,7 @@ public class PlayerCarryThrower : MonoBehaviour
         carryPoint.rotation = Quaternion.LookRotation(lastDirection, Vector3.up);
     }
 
-    private void TryGrabPlayer()
+    private bool TryGrabPlayer()
     {
         Collider[] hits = Physics.OverlapSphere(
             transform.position,
@@ -128,13 +134,16 @@ public class PlayerCarryThrower : MonoBehaviour
                 continue;
 
             GrabPlayer(hit.gameObject);
-            return;
+            return true;
         }
+
+        return false;
     }
 
     private void GrabPlayer(GameObject target)
     {
         carriedPlayer = target;
+
         carriedRb = target.GetComponent<Rigidbody>();
         carriedCol = target.GetComponent<Collider>();
 
@@ -164,12 +173,13 @@ public class PlayerCarryThrower : MonoBehaviour
         target.transform.localPosition = Vector3.zero;
         target.transform.localRotation = Quaternion.identity;
 
-        TutorialManager.Instance?.ValidateGrabPlayer();
+        OnPlayerGrabbed?.Invoke();
     }
 
     private void ThrowPlayer()
     {
         GameObject playerToThrow = carriedPlayer;
+
         Rigidbody rbToThrow = carriedRb;
         Collider colToThrow = carriedCol;
 
@@ -190,7 +200,7 @@ public class PlayerCarryThrower : MonoBehaviour
         if (landingIndicator != null)
             landingIndicator.SetActive(false);
 
-        TutorialManager.Instance?.ValidateThrowPlayer();
+        OnPlayerThrown?.Invoke();
 
         ResetCarryReferences();
 
@@ -229,7 +239,12 @@ public class PlayerCarryThrower : MonoBehaviour
         }
 
         Vector3 velocity = GetThrowVelocity();
-        Vector3 flatVelocity = new Vector3(velocity.x, 0f, velocity.z);
+
+        Vector3 flatVelocity = new Vector3(
+            velocity.x,
+            0f,
+            velocity.z
+        );
 
         Vector3 predictedPosition =
             carryPoint.position +
@@ -247,7 +262,8 @@ public class PlayerCarryThrower : MonoBehaviour
             landingGroundLayer))
         {
             landingIndicator.transform.position =
-                hit.point + Vector3.up * landingPreviewHeightOffset;
+                hit.point +
+                Vector3.up * landingPreviewHeightOffset;
 
             landingIndicator.transform.rotation = Quaternion.identity;
             landingIndicator.SetActive(true);
@@ -278,6 +294,7 @@ public class PlayerCarryThrower : MonoBehaviour
         carriedPlayer = null;
         carriedRb = null;
         carriedCol = null;
+
         carriedMovement = null;
         carriedControllerMovement = null;
     }

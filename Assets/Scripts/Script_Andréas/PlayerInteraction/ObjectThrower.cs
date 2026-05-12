@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObjectThrower : MonoBehaviour
 {
@@ -16,8 +17,11 @@ public class ObjectThrower : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private ThrowDirection throwDirection;
-    
-    private ThrowLandingPreview landingPreview;
+    [SerializeField] private ThrowLandingPreview landingPreview;
+
+    [Header("Events")]
+    public UnityEvent OnObjectPicked;
+    public UnityEvent OnObjectThrown;
 
     private float nextActionTime;
 
@@ -25,12 +29,11 @@ public class ObjectThrower : MonoBehaviour
     private Rigidbody heldRb;
     private Collider heldCol;
     private Vector3 heldOriginalScale = Vector3.one;
-    
-
 
     private void Awake()
     {
-        landingPreview = GetComponent<ThrowLandingPreview>();
+        if (landingPreview == null)
+            landingPreview = GetComponent<ThrowLandingPreview>();
     }
 
     private void LateUpdate()
@@ -46,37 +49,44 @@ public class ObjectThrower : MonoBehaviour
             landingPreview.ShowPreview(throwPoint.position, GetThrowVelocity());
     }
 
-    public void TryObjectAction()
+    public bool TryObjectAction()
     {
         if (Time.time < nextActionTime)
-            return;
+            return false;
 
         nextActionTime = Time.time + actionCooldown;
 
         if (heldObject == null)
-            TryPickObject();
-        else
-            ThrowObject();
+            return TryPickObject();
+
+        ThrowObject();
+        return true;
     }
 
-    private void TryPickObject()
+    private bool TryPickObject()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, pickupRange, pickupLayer);
+        Collider[] hits = Physics.OverlapSphere(
+            transform.position,
+            pickupRange,
+            pickupLayer
+        );
 
         if (hits.Length == 0)
-            return;
+            return false;
 
-        ThrowableObject throwable = hits[0].GetComponent<ThrowableObject>();
+        ThrowableObject throwable = hits[0].GetComponentInParent<ThrowableObject>();
 
         if (throwable != null && throwable.IsSnapped)
-            return;
+            return false;
 
         PickObject(hits[0].gameObject);
+        return true;
     }
 
     private void PickObject(GameObject obj)
     {
-        ThrowableObject throwable = obj.GetComponent<ThrowableObject>();
+        ThrowableObject throwable =
+            obj.GetComponentInParent<ThrowableObject>();
 
         if (throwable != null && throwable.IsSnapped)
             return;
@@ -87,7 +97,7 @@ public class ObjectThrower : MonoBehaviour
 
         if (heldRb == null)
         {
-            heldObject = null;
+            ClearHeldObject();
             return;
         }
 
@@ -106,7 +116,7 @@ public class ObjectThrower : MonoBehaviour
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = heldOriginalScale;
 
-        TutorialManager.Instance?.ValidateGrabObject();
+        OnObjectPicked?.Invoke();
     }
 
     private void ThrowObject()
@@ -127,7 +137,7 @@ public class ObjectThrower : MonoBehaviour
         if (landingPreview != null)
             landingPreview.HidePreview();
 
-        TutorialManager.Instance?.ValidateThrowObject();
+        OnObjectThrown?.Invoke();
 
         ClearHeldObject();
     }
@@ -175,7 +185,8 @@ public class ObjectThrower : MonoBehaviour
 
         ClearHeldObject();
 
-        RespawnableObject respawnable = objectToRespawn.GetComponent<RespawnableObject>();
+        RespawnableObject respawnable =
+            objectToRespawn.GetComponent<RespawnableObject>();
 
         if (respawnable != null)
             respawnable.Respawn();
@@ -196,5 +207,10 @@ public class ObjectThrower : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, pickupRange);
+    }
+    
+    public bool HasObject()
+    {
+        return heldObject != null;
     }
 }

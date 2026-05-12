@@ -1,43 +1,39 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerControllerMovement : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _jumpForce;
+    [Header("Movement")]
+    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float jumpForce = 5f;
 
-    private bool _canInteract;
-    private bool _canControlled;
-    private bool _canHandle;
+    [Header("References")]
+    [SerializeField] private PlayerInteractionDispatcher interactionDispatcher;
 
-    private bool _isWheel;
-    private bool _isPedals;
+    [Header("Events")]
+    public UnityEvent OnInteractPressed;
+    public UnityEvent OnJumpPressed;
 
-    [SerializeField] private CarMovement otherController;
+    [System.Serializable]
+    public class MoveInputEvent : UnityEvent<Vector2> { }
 
-    public PlayerControllerMovement objectCurrentController;
+    public MoveInputEvent OnMoveInput;
 
-    private Rigidbody _rb;
+    private Rigidbody rb;
+
+    [HideInInspector]
     public Vector2 direction;
 
-    private ObjectThrower _objectThrower;
-    private PlayerCarryThrower _playerCarryThrower;
-    private TwoPlayerCarryInteractor _twoPlayerCarryInteractor;
-
-    void Start()
+    private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 
-        _objectThrower = GetComponent<ObjectThrower>();
-        _playerCarryThrower = GetComponent<PlayerCarryThrower>();
-        _twoPlayerCarryInteractor = GetComponent<TwoPlayerCarryInteractor>();
-
-        _canInteract = false;
-        _canControlled = false;
-        _canHandle = false;
+        if (interactionDispatcher == null)
+            interactionDispatcher = GetComponent<PlayerInteractionDispatcher>();
     }
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
     }
@@ -45,115 +41,59 @@ public class PlayerControllerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         direction = context.ReadValue<Vector2>();
-
-        if (direction.sqrMagnitude > 0.1f)
-            TutorialManager.Instance?.ValidateMove();
+        OnMoveInput?.Invoke(direction);
     }
+
     private void Move()
     {
-        float Xmovement = direction.x * _movementSpeed * Time.fixedDeltaTime;
-        float Ymovement = _rb.linearVelocity.y;
-        float Zmovement = direction.y * _movementSpeed * Time.fixedDeltaTime;
-
-        _rb.linearVelocity = new Vector3(Xmovement, Ymovement, Zmovement);
-    }
-
-    public void OnInteract()
-    {
-        if (_twoPlayerCarryInteractor != null)
-        {
-            bool handledHeavyObject = _twoPlayerCarryInteractor.TryHeavyCarryAction();
-
-            if (handledHeavyObject)
-                return;
-        }
-
-        if (_objectThrower != null)
-            _objectThrower.TryObjectAction();
-
-        if (_playerCarryThrower != null)
-            _playerCarryThrower.TryCarryAction();
-
-        if (_canInteract)
-            print("interact");
-
-        if (_canHandle)
-            print("can lift other player");
+        rb.linearVelocity = new Vector3(
+            direction.x * movementSpeed,
+            rb.linearVelocity.y,
+            direction.y * movementSpeed
+        );
     }
 
     public void OnJump()
     {
-        _rb.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
+        Jump();
     }
 
-    public void OnSwitchController()
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (_canControlled && otherController != null)
-        {
-            print("Switch");
+        if (!context.started && !context.performed)
+            return;
 
-            direction = Vector2.zero;
-            _rb.linearVelocity = Vector3.zero;
-
-            PlayerInput playerInput = GetComponent<PlayerInput>();
-            InputDevice device = playerInput.devices[0];
-
-            PlayerInput doorInput = null;
-
-            if (_isWheel)
-                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[0];
-            else
-                doorInput = otherController.GetComponentsInChildren<PlayerInput>()[1];
-
-            if (doorInput != null)
-                doorInput.SwitchCurrentControlScheme(playerInput.currentControlScheme, device);
-
-            otherController.PlayerEnter(_isWheel);
-
-            _canControlled = false;
-            playerInput.enabled = false;
-            gameObject.SetActive(false);
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("LeftDoor"))
-        {
-            CarMovement car = other.GetComponentInParent<CarMovement>();
-
-            if (car != null)
-            {
-                otherController = car;
-                _canControlled = true;
-                _isWheel = true;
-                _isPedals = false;
-            }
-        }
-        else if (other.CompareTag("RightDoor"))
-        {
-            CarMovement car = other.GetComponentInParent<CarMovement>();
-
-            if (car != null)
-            {
-                otherController = car;
-                _canControlled = true;
-                _isPedals = true;
-                _isWheel = false;
-            }
-        }
+        Jump();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void Jump()
     {
-        if (other.CompareTag("LeftDoor") || other.CompareTag("RightDoor"))
-        {
-            if (otherController != null)
-                otherController.PlayerExit(_isWheel);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        OnJumpPressed?.Invoke();
+    }
 
-            otherController = null;
-            _canControlled = false;
-            _isWheel = false;
-            _isPedals = false;
-        }
+    public void OnInteract()
+    {
+        Interact();
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.started && !context.performed)
+            return;
+
+        Interact();
+    }
+
+    private void Interact()
+    {
+        Debug.Log("INTERACT REÇU PAR : " + gameObject.name);
+
+        OnInteractPressed?.Invoke();
+
+        if (interactionDispatcher != null)
+            interactionDispatcher.HandleInteract();
+        else
+            Debug.LogWarning("Aucun PlayerInteractionDispatcher sur " + gameObject.name);
     }
 }
