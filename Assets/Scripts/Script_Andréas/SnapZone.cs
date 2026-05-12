@@ -7,6 +7,8 @@ public class SnapZone : MonoBehaviour
 
     private bool[] occupied;
 
+
+
     void Awake()
     {
         occupied = new bool[snapPoints.Length];
@@ -39,6 +41,13 @@ public class SnapZone : MonoBehaviour
 
         if (puzzleValidator != null)
             puzzleValidator.RegisterObjectSnapped();
+    }
+
+    public void ValidateZone()
+    {
+
+
+
     }
 
     int GetFreeSlot()
