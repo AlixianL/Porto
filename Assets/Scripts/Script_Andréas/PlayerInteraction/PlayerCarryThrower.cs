@@ -83,12 +83,18 @@ public class PlayerCarryThrower : MonoBehaviour
         if (Time.time < nextActionTime)
             return false;
 
-        nextActionTime = Time.time + actionCooldown;
-
         if (carriedPlayer == null)
-            return TryGrabPlayer();
+        {
+            bool grabbed = TryGrabPlayer();
+
+            if (grabbed)
+                nextActionTime = Time.time + actionCooldown;
+
+            return grabbed;
+        }
 
         ThrowPlayer();
+        nextActionTime = Time.time + actionCooldown;
         return true;
     }
 

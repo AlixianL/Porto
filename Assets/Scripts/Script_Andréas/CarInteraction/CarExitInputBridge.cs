@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class CarExitInputBridge : MonoBehaviour
 {
-    [SerializeField] private Controller controller;
     [SerializeField] private KeyCode keyboardExitKey = KeyCode.E;
+
+    private Controller controller;
 
     private void Awake()
     {
-        if (controller == null)
-            controller = GetComponent<Controller>();
+        controller = GetComponent<Controller>();
     }
 
     private void Update()

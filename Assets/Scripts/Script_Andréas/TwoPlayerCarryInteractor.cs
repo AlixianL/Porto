@@ -25,26 +25,54 @@ public class TwoPlayerCarryInteractor : MonoBehaviour
             return true;
         }
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, heavyObjectLayer);
+        TwoPlayerCarryObject heavyObject = FindNearestHeavyObject();
+
+        if (heavyObject == null)
+            return false;
+
+        bool registered = heavyObject.TryRegisterPlayer(this);
+
+        if (registered)
+            CurrentHeavyObject = heavyObject;
+
+        return registered;
+    }
+
+    private TwoPlayerCarryObject FindNearestHeavyObject()
+    {
+        Collider[] hits = Physics.OverlapSphere(
+            transform.position,
+            interactRange,
+            heavyObjectLayer
+        );
 
         if (hits.Length == 0)
-            return false;
+            return null;
 
-        TwoPlayerCarryObject heavyObject = hits[0].GetComponent<TwoPlayerCarryObject>();
+        TwoPlayerCarryObject nearestObject = null;
+        float nearestDistance = float.MaxValue;
 
-        if (heavyObject == null)
-            heavyObject = hits[0].GetComponentInParent<TwoPlayerCarryObject>();
-
-        if (heavyObject == null)
-            return false;
-
-        if (heavyObject.TryRegisterPlayer(this))
+        foreach (Collider hit in hits)
         {
-            CurrentHeavyObject = heavyObject;
-            return true;
+            TwoPlayerCarryObject heavyObject =
+                hit.GetComponentInParent<TwoPlayerCarryObject>();
+
+            if (heavyObject == null)
+                continue;
+
+            float distance = Vector3.Distance(
+                transform.position,
+                heavyObject.transform.position
+            );
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestObject = heavyObject;
+            }
         }
 
-        return false;
+        return nearestObject;
     }
 
     public Vector3 GetInputDirection()
@@ -64,6 +92,7 @@ public class TwoPlayerCarryInteractor : MonoBehaviour
         direction.y = 0f;
         return direction.normalized;
     }
+
     public void ClearHeavyObject(TwoPlayerCarryObject heavyObject)
     {
         if (CurrentHeavyObject == heavyObject)

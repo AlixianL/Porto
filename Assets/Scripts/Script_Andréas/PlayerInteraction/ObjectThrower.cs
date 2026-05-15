@@ -54,12 +54,18 @@ public class ObjectThrower : MonoBehaviour
         if (Time.time < nextActionTime)
             return false;
 
-        nextActionTime = Time.time + actionCooldown;
-
         if (heldObject == null)
-            return TryPickObject();
+        {
+            bool picked = TryPickObject();
+
+            if (picked)
+                nextActionTime = Time.time + actionCooldown;
+
+            return picked;
+        }
 
         ThrowObject();
+        nextActionTime = Time.time + actionCooldown;
         return true;
     }
 

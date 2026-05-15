@@ -21,26 +21,13 @@ public class PlayerInteractionDispatcher : MonoBehaviour
 
     public void HandleInteract()
     {
-        Debug.Log("DISPATCHER INTERACT : " + gameObject.name);
-
         if (twoPlayerCarryInteractor != null && twoPlayerCarryInteractor.TryHeavyCarryAction())
-        {
-            Debug.Log("Interaction prise par objet lourd");
             return;
-        }
 
         if (objectThrower != null && objectThrower.TryObjectAction())
-        {
-            Debug.Log("Interaction prise par objet simple");
             return;
-        }
 
-        if (playerCarryThrower != null && playerCarryThrower.TryCarryAction())
-        {
-            Debug.Log("Interaction prise par joueur porté");
-            return;
-        }
-
-        Debug.Log("Aucune interaction trouvée");
+        if (playerCarryThrower != null)
+            playerCarryThrower.TryCarryAction();
     }
 }
