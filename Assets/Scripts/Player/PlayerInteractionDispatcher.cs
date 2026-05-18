@@ -6,6 +6,7 @@ public class PlayerInteractionDispatcher : MonoBehaviour
     [SerializeField] private TwoPlayerCarryInteractor twoPlayerCarryInteractor;
     [SerializeField] private ObjectThrower objectThrower;
     [SerializeField] private PlayerCarryThrower playerCarryThrower;
+    [SerializeField] private PlayerVehicleInteractor vehicleInteractor;
 
     private void Awake()
     {
@@ -17,11 +18,17 @@ public class PlayerInteractionDispatcher : MonoBehaviour
 
         if (playerCarryThrower == null)
             playerCarryThrower = GetComponent<PlayerCarryThrower>();
+
+        if (vehicleInteractor == null)
+            vehicleInteractor = GetComponent<PlayerVehicleInteractor>();
     }
 
     public void HandleInteract()
     {
         if (twoPlayerCarryInteractor != null && twoPlayerCarryInteractor.TryHeavyCarryAction())
+            return;
+
+        if (vehicleInteractor != null && vehicleInteractor.TryEnterVehicle())
             return;
 
         if (objectThrower != null && objectThrower.TryObjectAction())

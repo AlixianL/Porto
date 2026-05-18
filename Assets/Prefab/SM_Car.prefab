@@ -118,7 +118,31 @@ MonoBehaviour:
   - {fileID: 771878780688058784}
   OnObjectSnapped:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidatePutSuitcase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ObjectiveCounter, Assembly-CSharp
+        m_MethodName: AddProgress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &2258976215181027485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -355,15 +379,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.2823958
+      value: 0.77565575
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4999998
+      value: -1.4732302
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -70.9
+      value: 0.5308304
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -371,7 +395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalRotation.y
@@ -454,12 +478,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5829002828393534032}
+    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4326517247726432172}
+    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3609830751109826399}
+    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1093777611995238663}
+    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 354353814630991068}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5659060565063286291}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8611126121300688529}
+    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2939506135622732603}
+    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7151566025440247919}
+    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4674761469206599910}
+    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3337946678182265975}
     - targetCorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1546945477749964482}
@@ -621,11 +669,101 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
     m_ActionName: 'Wheel/Klaxon[/Keyboard/g,/XInputControllerWindows/dpad/up]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1093777611995238663}
+        m_TargetAssemblyTypeName: VehicleExitEventRelay, Assembly-CSharp
+        m_MethodName: OnExitVehicle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0672f3d0-4613-4881-8b4e-d3c9712aaf43
+    m_ActionName: 'Wheel/ExitVehicle[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c734df3e-e9c0-44b7-9a78-5f8db9e4da7c
+    m_ActionName: 'Pedal/ExitVehicle[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Wheel
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4326517247726432172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653286202048950159}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408a59c9d73344f4684ce1018d153a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WheelController
+  debugInput: 0
+  controllerToSwitch: {fileID: 4326517247726432172}
+  isKeyboard: 0
+  indexKeyboard: 0
+  positiveDirectionX: 0
+  negativeDirectionX: 0
+  positiveDirectionY: 0
+  negativeDirectionY: 0
+  PositiveForceInput: 0
+  negativeForceInput: 0
+  interactInput: 101
+  SwitchControllerInput: 101
+  indexGamepad: 0
+  _carMovement: {fileID: 7999276669697645174}
+  _delayJumpInput: 0
+  exitVehicleKey: 101
+--- !u!114 &3609830751109826399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653286202048950159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c79047171f2e3743913210a12ecbc01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarExitInputBridge
+  keyboardExitKey: 101
+--- !u!114 &1093777611995238663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653286202048950159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14a78244d09ef24ab4ec0f4fc7c7560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleExitEventRelay
+  seatHandler: {fileID: 0}
+--- !u!114 &354353814630991068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653286202048950159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca0d7da7b3fe9a44a945b60842cb310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleSeatHandler
+  carMovement: {fileID: 7999276669697645174}
+  vehicleController: {fileID: 4326517247726432172}
+  isWheelSeat: 1
+  exitOffset: {x: 2, y: 0, z: 0}
 --- !u!1 &2429006658892255095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
@@ -871,11 +1009,101 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
     m_ActionName: 'Wheel/Klaxon[/Keyboard/g,/XInputControllerWindows/dpad/up]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0672f3d0-4613-4881-8b4e-d3c9712aaf43
+    m_ActionName: 'Wheel/ExitVehicle[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4674761469206599910}
+        m_TargetAssemblyTypeName: VehicleExitEventRelay, Assembly-CSharp
+        m_MethodName: OnExitVehicle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c734df3e-e9c0-44b7-9a78-5f8db9e4da7c
+    m_ActionName: 'Pedal/ExitVehicle[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Pedal
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2939506135622732603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763820592031617867}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7e682928c068c469a9db95a7c0870c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PedalsController
+  debugInput: 0
+  controllerToSwitch: {fileID: 2939506135622732603}
+  isKeyboard: 0
+  indexKeyboard: 0
+  positiveDirectionX: 0
+  negativeDirectionX: 0
+  positiveDirectionY: 0
+  negativeDirectionY: 0
+  PositiveForceInput: 0
+  negativeForceInput: 0
+  interactInput: 101
+  SwitchControllerInput: 101
+  indexGamepad: 0
+  _carMovement: {fileID: 7999276669697645174}
+  _delayJumpInput: 0
+  exitVehicleKey: 101
+--- !u!114 &7151566025440247919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763820592031617867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c79047171f2e3743913210a12ecbc01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarExitInputBridge
+  keyboardExitKey: 101
+--- !u!114 &4674761469206599910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763820592031617867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14a78244d09ef24ab4ec0f4fc7c7560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleExitEventRelay
+  seatHandler: {fileID: 0}
+--- !u!114 &3337946678182265975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763820592031617867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca0d7da7b3fe9a44a945b60842cb310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleSeatHandler
+  carMovement: {fileID: 7999276669697645174}
+  vehicleController: {fileID: 2939506135622732603}
+  isWheelSeat: 0
+  exitOffset: {x: 2, y: 0, z: 0}
 --- !u!1 &4190227222551690773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}

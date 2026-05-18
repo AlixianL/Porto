@@ -82,6 +82,9 @@ GameObject:
   - component: {fileID: 3929498876588659058}
   - component: {fileID: 3321422344340641685}
   - component: {fileID: 2683610192450945373}
+  - component: {fileID: 8829366846555389071}
+  - component: {fileID: 7540389037398205208}
+  - component: {fileID: 4746610186575887200}
   m_Layer: 7
   m_Name: Player-2
   m_TagString: Player
@@ -275,19 +278,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4771259795512416324}
         m_TargetAssemblyTypeName: PlayerControllerMovement, Assembly-CSharp
         m_MethodName: OnInteract
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4771259795512416324}
-        m_TargetAssemblyTypeName: PlayerControllerMovement, Assembly-CSharp
-        m_MethodName: OnSwitchController
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -303,7 +294,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4771259795512416324}
         m_TargetAssemblyTypeName: PlayerControllerMovement, Assembly-CSharp
         m_MethodName: OnJump
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -338,7 +329,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3ab3f3fd-75b3-4ce5-abae-3bac7ef8afda
     m_ActionName: 'Wheel/Klaxon[/Keyboard/g]'
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player-2
   m_SplitScreenIndex: -1
@@ -355,10 +346,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5a48b0721d8484d9d0c5051622783d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControllerMovement
-  _movementSpeed: 200
-  _jumpForce: 1
-  otherController: {fileID: 0}
-  objectCurrentController: {fileID: 4771259795512416324}
+  movementSpeed: 5
+  jumpForce: 5
+  interactionDispatcher: {fileID: 7540389037398205208}
+  OnJumpPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMoveInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   direction: {x: 0, y: 0}
 --- !u!114 &3297590550149013612
 MonoBehaviour:
@@ -381,6 +389,37 @@ MonoBehaviour:
     m_Bits: 64
   actionCooldown: 0.25
   throwDirection: {fileID: 896693054278062420}
+  landingPreview: {fileID: 2683610192450945373}
+  OnObjectPicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateGrabObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnObjectThrown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateThrowObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &896693054278062420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +466,36 @@ MonoBehaviour:
   raycastStartHeight: 20
   raycastDistance: 50
   actionCooldown: 0.5
+  OnPlayerGrabbed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateGrabPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnPlayerThrown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateThrowPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3321422344340641685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,3 +530,48 @@ MonoBehaviour:
   raycastDistance: 40
   indicatorYOffset: 0.08
   showDebugLogs: 0
+--- !u!114 &8829366846555389071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d6ee6f3f87b6b44921697fb6641485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TwoPlayerCarryInteractor
+  interactRange: 1.5
+  heavyObjectLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &7540389037398205208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab653d333eeddc4e9aa2809add032f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionDispatcher
+  twoPlayerCarryInteractor: {fileID: 8829366846555389071}
+  objectThrower: {fileID: 3297590550149013612}
+  playerCarryThrower: {fileID: 3929498876588659058}
+  vehicleInteractor: {fileID: 4746610186575887200}
+--- !u!114 &4746610186575887200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447390162024020651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d03b3f37d9962f46b6b73ebb3e67439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVehicleInteractor
+  playerRoot: {fileID: 0}

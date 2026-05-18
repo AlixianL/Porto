@@ -1,8 +1,5 @@
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 
 public class Controller : MonoBehaviour
 {
@@ -15,15 +12,19 @@ public class Controller : MonoBehaviour
     [SerializeField] public bool isKeyboard;
     [SerializeField] protected int indexKeyboard;
     protected Keyboard keyboard;
+
     [Header("Horizontal Y", order = 1)]
     [SerializeField] protected KeyCode positiveDirectionX;
     [SerializeField] protected KeyCode negativeDirectionX;
+
     [Header("Horizontal X", order = 1)]
     [SerializeField] protected KeyCode positiveDirectionY;
     [SerializeField] protected KeyCode negativeDirectionY;
+
     [Header("Force", order = 1)]
     [SerializeField] protected KeyCode PositiveForceInput;
     [SerializeField] protected KeyCode negativeForceInput;
+
     [Header("Interact", order = 1)]
     [SerializeField] protected KeyCode interactInput;
     [SerializeField] protected KeyCode SwitchControllerInput;
@@ -36,119 +37,122 @@ public class Controller : MonoBehaviour
     protected Gamepad gamepad;
     #endregion
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
+    {
+        RefreshInputDevice();
+    }
+
+    public virtual void Update()
+    {
+        if (isKeyboard)
+            KeyboardManager();
+        else
+            GamepadManager();
+    }
+
+    protected void RefreshInputDevice()
     {
         if (isKeyboard)
         {
             keyboard = Keyboard.current;
+            return;
         }
-        else
-        {
-            gamepad = Gamepad.all[indexGamepad];
-        }
+
+        gamepad = GetGamepadByIndex(indexGamepad);
     }
-    
-    // Update is called once per frame
-    public virtual void Update()
+
+    protected Gamepad GetGamepadByIndex(int index)
     {
-        if (isKeyboard)
-        {
-            KeyboardManager();
-        }
-        else
-        {
-            GamepadManager();
-        }
+        if (Gamepad.all.Count == 0)
+            return null;
+
+        if (index < 0 || index >= Gamepad.all.Count)
+            return null;
+
+        return Gamepad.all[index];
     }
 
     #region Keyboard
     public virtual void KeyboardManager()
     {
-        Horizontal(new Vector2 (XAxisInputK(), YAxisInputK()));
-        if (Input.GetKeyDown(interactInput) )
-        {
+        Horizontal(new Vector2(XAxisInputK(), YAxisInputK()));
+
+        if (Input.GetKeyDown(interactInput))
             InteractInput();
-        }
+
         if (Input.GetKey(negativeForceInput))
-        {
             NegativeForce();
-        }
+
         if (Input.GetKey(PositiveForceInput))
-        {
             PositiveForce();
-        }
+
         if (Input.GetKeyDown(SwitchControllerInput))
-        {
             SwitchController();
-        }
     }
 
     protected float XAxisInputK()
     {
         float value = 0f;
+
         if (Input.GetKey(negativeDirectionX))
-        {
             value--;
-        }
+
         if (Input.GetKey(positiveDirectionX))
-        {
             value++;
-        }
+
         return value;
     }
 
     protected float YAxisInputK()
     {
         float value = 0f;
+
         if (Input.GetKey(negativeDirectionY))
-        {
             value--;
-        }
+
         if (Input.GetKey(positiveDirectionY))
-        {
             value++;
-        }
+
         return value;
     }
     #endregion
 
     #region Gamepad
-    //GamePadVisual
     public virtual void GamepadManager()
     {
+        if (gamepad == null)
+            gamepad = GetGamepadByIndex(indexGamepad);
+
+        if (gamepad == null)
+            return;
+
         Horizontal(gamepad.leftStick.value);
+
         if (gamepad.buttonWest.wasPressedThisFrame)
-        {
             InteractInput();
-        }
+
         if (gamepad.leftTrigger.isPressed)
-        {
             NegativeForce();
-        }
+
         if (gamepad.rightTrigger.isPressed)
-        {
             PositiveForce();
-        }
+
         if (gamepad.buttonNorth.wasPressedThisFrame)
-        {
             SwitchController();
-        }
     }
     #endregion
 
-    #region Commun Functions
+    #region Common Functions
     public virtual void SwitchController()
     {
-        controllerToSwitch.enabled = true;
-        this.enabled = false;
+        if (controllerToSwitch != null)
+            controllerToSwitch.enabled = true;
+
+        enabled = false;
     }
 
     public virtual void Horizontal(Vector2 direction)
     {
-
     }
 
     public virtual void InteractInput()
@@ -158,12 +162,10 @@ public class Controller : MonoBehaviour
 
     public virtual void PositiveForce()
     {
-
     }
 
     public virtual void NegativeForce()
     {
-
     }
     #endregion
 }

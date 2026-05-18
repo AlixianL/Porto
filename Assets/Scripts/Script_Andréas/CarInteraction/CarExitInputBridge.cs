@@ -24,16 +24,22 @@ public class CarExitInputBridge : MonoBehaviour
         {
             if (Input.GetKeyDown(keyboardExitKey))
                 controller.SwitchController();
-        }
-        else
-        {
-            if (controller.indexGamepad >= 0 && controller.indexGamepad < Gamepad.all.Count)
-            {
-                Gamepad gamepad = Gamepad.all[controller.indexGamepad];
 
-                if (gamepad.buttonWest.wasPressedThisFrame || gamepad.buttonEast.wasPressedThisFrame)
-                    controller.SwitchController();
-            }
+            return;
         }
+
+        if (Gamepad.all.Count == 0)
+            return;
+
+        if (controller.indexGamepad < 0 || controller.indexGamepad >= Gamepad.all.Count)
+            return;
+
+        Gamepad gamepad = Gamepad.all[controller.indexGamepad];
+
+        if (gamepad == null)
+            return;
+
+        if (gamepad.buttonWest.wasPressedThisFrame || gamepad.buttonEast.wasPressedThisFrame)
+            controller.SwitchController();
     }
 }
