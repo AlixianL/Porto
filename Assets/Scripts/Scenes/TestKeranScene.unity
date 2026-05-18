@@ -2308,6 +2308,10 @@ PrefabInstance:
       propertyPath: OnObjectSnapped.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1348116249}
+    - target: {fileID: 1093777611995238663, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: seatHandler
+      value: 
+      objectReference: {fileID: 1791547561}
     - target: {fileID: 2429006658892255095, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: m_Name
       value: SM_Car
@@ -2352,125 +2356,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
-      value: 0672f3d0-4613-4881-8b4e-d3c9712aaf43
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
-      value: c734df3e-e9c0-44b7-9a78-5f8db9e4da7c
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
-      value: 'Wheel/ExitVehicle[/Keyboard/e]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
-      value: 'Pedal/ExitVehicle[/Keyboard/e]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    - target: {fileID: 4674761469206599910, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: seatHandler
       value: 
-      objectReference: {fileID: 961357573}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnExitVehicle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: VehicleExitEventRelay, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829002828393534032, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1148707247}
     - target: {fileID: 7999276669697645174, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 201028489}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
-      value: 0672f3d0-4613-4881-8b4e-d3c9712aaf43
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
-      value: c734df3e-e9c0-44b7-9a78-5f8db9e4da7c
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
-      value: 'Wheel/ExitVehicle[/Keyboard/e]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
-      value: 'Pedal/ExitVehicle[/Keyboard/e]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1148707246}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnExitVehicle
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: VehicleExitEventRelay, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8611126121300688529, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3763820592031617867, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1148707246}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
---- !u!114 &961357573 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1093777611995238663, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-  m_PrefabInstance: {fileID: 961357572}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14a78244d09ef24ab4ec0f4fc7c7560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleExitEventRelay
 --- !u!1 &969359885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3178,28 +3076,22 @@ MonoBehaviour:
   pendingColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   currentColor: {r: 1, g: 1, b: 1, a: 1}
   validatedColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!1 &1118186852 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3763820592031617867, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
-  m_PrefabInstance: {fileID: 961357572}
-  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1148707235 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 5659060565063286291, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
   m_PrefabInstance: {fileID: 961357572}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1148707246
+--- !u!114 &1148707247 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3337946678182265975, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+  m_PrefabInstance: {fileID: 961357572}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118186852}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14a78244d09ef24ab4ec0f4fc7c7560, type: 3}
+  m_Script: {fileID: 11500000, guid: fca0d7da7b3fe9a44a945b60842cb310, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleExitEventRelay
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleSeatHandler
 --- !u!1 &1170743981
 GameObject:
   m_ObjectHideFlags: 0
@@ -5550,6 +5442,17 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 2947449942279152416, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
   m_PrefabInstance: {fileID: 961357572}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1791547561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 354353814630991068, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+  m_PrefabInstance: {fileID: 961357572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca0d7da7b3fe9a44a945b60842cb310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleSeatHandler
 --- !u!1 &1797312357
 GameObject:
   m_ObjectHideFlags: 0
