@@ -43,8 +43,9 @@ public class TutorialManager : MonoBehaviour
     public void ValidateGrabPlayer() => ValidateStep(3);
     public void ValidateThrowPlayer() => ValidateStep(4);
     public void ValidatePutSuitcase() => ValidateStep(5);
-    public void ValidateCarLeft() => ValidateStep(6);
-    public void ValidateCarRight() => ValidateStep(7);
+    public void ValidateEnterExitCar() => ValidateStep(6);
+    public void ValidateCarLeft() => ValidateStep(7);
+    public void ValidateCarRight() => ValidateStep(8);
 
     private void ValidateStep(int stepIndex)
     {
@@ -75,7 +76,7 @@ public class TutorialManager : MonoBehaviour
 
         if (currentStep >= stepsUI.Length)
         {
-            Debug.Log("Tutoriel terminé");
+            Debug.Log("Tutoriel terminï¿½");
             return;
         }
 

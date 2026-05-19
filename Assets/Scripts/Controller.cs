@@ -50,7 +50,7 @@ public class Controller : MonoBehaviour
             GamepadManager();
     }
 
-    protected void RefreshInputDevice()
+    public void RefreshInputDevice()
     {
         if (isKeyboard)
         {

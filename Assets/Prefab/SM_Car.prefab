@@ -237,9 +237,8 @@ GameObject:
   - component: {fileID: 3494592905223268860}
   - component: {fileID: 7924147504432737480}
   - component: {fileID: 2470000962428303589}
-  - component: {fileID: 3092261899981869157}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: CarCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,20 +354,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &3092261899981869157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9047664932073535821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb445bd27e194b14aacfbdb3790d1be8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraManager
-  _carCamera: {fileID: 7924147504432737480}
-  _levelCamera: {fileID: 0}
 --- !u!1001 &3275517149377589798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -387,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5308304
+      value: -11.470001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -483,13 +468,7 @@ PrefabInstance:
       addedObject: {fileID: 4326517247726432172}
     - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3609830751109826399}
-    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1093777611995238663}
-    - targetCorrespondingSourceObject: {fileID: 4288938075158437289, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 354353814630991068}
+      addedObject: {fileID: 7184073201204065115}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5659060565063286291}
@@ -501,13 +480,7 @@ PrefabInstance:
       addedObject: {fileID: 2939506135622732603}
     - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7151566025440247919}
-    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4674761469206599910}
-    - targetCorrespondingSourceObject: {fileID: 1823746318623940973, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3337946678182265975}
+      addedObject: {fileID: 8906713038228068848}
     - targetCorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1546945477749964482}
@@ -671,7 +644,7 @@ MonoBehaviour:
     m_ActionName: 'Wheel/Klaxon[/Keyboard/g,/XInputControllerWindows/dpad/up]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093777611995238663}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VehicleExitEventRelay, Assembly-CSharp
         m_MethodName: OnExitVehicle
         m_Mode: 0
@@ -721,8 +694,22 @@ MonoBehaviour:
   indexGamepad: 0
   _carMovement: {fileID: 7999276669697645174}
   _delayJumpInput: 0
-  exitVehicleKey: 101
---- !u!114 &3609830751109826399
+  OnWheelInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateCarLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7184073201204065115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -731,39 +718,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1653286202048950159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c79047171f2e3743913210a12ecbc01, type: 3}
+  m_Script: {fileID: 11500000, guid: 3424f65977a9a344da6c03a7be36a969, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarExitInputBridge
-  keyboardExitKey: 101
---- !u!114 &1093777611995238663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653286202048950159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14a78244d09ef24ab4ec0f4fc7c7560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleExitEventRelay
-  seatHandler: {fileID: 0}
---- !u!114 &354353814630991068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653286202048950159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fca0d7da7b3fe9a44a945b60842cb310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleSeatHandler
+  m_EditorClassIdentifier: Assembly-CSharp::CarSeat
+  seatType: 0
   carMovement: {fileID: 7999276669697645174}
   vehicleController: {fileID: 4326517247726432172}
-  isWheelSeat: 1
-  exitOffset: {x: 2, y: 0, z: 0}
+  keyboardExitKey: 101
+  exitInputLockDuration: 0.5
+  exitDistance: 2
+  customExitDirection: {x: -1, y: 0, z: 0}
+  OnSeatEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSeatExited:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateEnterExitCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2429006658892255095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}
@@ -793,6 +775,7 @@ MonoBehaviour:
   jumpPedal: 0
   jumpWheel: 0
   isInLevel: 0
+  inputLocked: 0
   _isGrounded: 0
   _distanceRaycast: 2.5
   _offsetRaycast: {x: 0, y: 2, z: 0}
@@ -1015,7 +998,7 @@ MonoBehaviour:
     m_ActionName: 'Wheel/ExitVehicle[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4674761469206599910}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VehicleExitEventRelay, Assembly-CSharp
         m_MethodName: OnExitVehicle
         m_Mode: 0
@@ -1061,8 +1044,22 @@ MonoBehaviour:
   indexGamepad: 0
   _carMovement: {fileID: 7999276669697645174}
   _delayJumpInput: 0
-  exitVehicleKey: 101
---- !u!114 &7151566025440247919
+  OnPedalsInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateCarRight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8906713038228068848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1071,39 +1068,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 3763820592031617867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c79047171f2e3743913210a12ecbc01, type: 3}
+  m_Script: {fileID: 11500000, guid: 3424f65977a9a344da6c03a7be36a969, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarExitInputBridge
-  keyboardExitKey: 101
---- !u!114 &4674761469206599910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3763820592031617867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14a78244d09ef24ab4ec0f4fc7c7560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleExitEventRelay
-  seatHandler: {fileID: 0}
---- !u!114 &3337946678182265975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3763820592031617867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fca0d7da7b3fe9a44a945b60842cb310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleSeatHandler
+  m_EditorClassIdentifier: Assembly-CSharp::CarSeat
+  seatType: 1
   carMovement: {fileID: 7999276669697645174}
   vehicleController: {fileID: 2939506135622732603}
-  isWheelSeat: 0
-  exitOffset: {x: 2, y: 0, z: 0}
+  keyboardExitKey: 101
+  exitInputLockDuration: 0.5
+  exitDistance: 2
+  customExitDirection: {x: 1, y: 0, z: 0}
+  OnSeatEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSeatExited:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ValidateEnterExitCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4190227222551690773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7542874017657222093, guid: 5ef74f431d82d834fae2ef7f6fd09ec4, type: 3}

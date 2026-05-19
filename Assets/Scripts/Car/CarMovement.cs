@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +5,7 @@ public class CarMovement : MonoBehaviour
 {
     private Rigidbody _rb;
 
-    [Header("Movement Stats :")]
+    [Header("Movement Stats")]
     [SerializeField] private float _acceleration;
     private float _actualAcceleration;
     private float _actualSpeed;
@@ -15,67 +13,108 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float _friction;
     [SerializeField] private float _breakForce;
     [SerializeField] private float _jumpForce;
-
     [SerializeField] private float _rotationSpeed;
 
-    [Header("Debug booléans : ")]
+    [Header("State")]
     public bool forwardInput;
     public bool backwardInput;
     public float axis;
     public bool jumpPedal;
     public bool jumpWheel;
     public bool isInLevel;
+
+    [SerializeField] private bool inputLocked;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _distanceRaycast;
     [SerializeField] private Vector3 _offsetRaycast;
+
     private float _direction;
 
     public bool _wheelController;
     public bool _pedalsController;
-    private int _playersInCar = 0;
-    public CameraManager cameraManager;
 
+    private int _playersInCar = 0;
+
+    public CameraManager cameraManager;
     public AudioSource audioSource;
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _rb.maxLinearVelocity = _maxSpeed;
-        cameraManager = GetComponentInChildren<CameraManager>();
+
+        if (_rb != null)
+            _rb.maxLinearVelocity = _maxSpeed;
+
+        if (cameraManager == null)
+            cameraManager = FindFirstObjectByType<CameraManager>();
+
+        UpdatePlayersInCarCount();
+        UpdateCameraState();
     }
 
     private void Update()
     {
+        if (_rb == null)
+            return;
+
         if ((_rb.linearVelocity.y <= 0.001f && _rb.linearVelocity.z <= 0.001f) &&
             (_rb.linearVelocity.y >= -0.001f && _rb.linearVelocity.z >= -0.001f))
         {
             _direction = 0f;
-            if (forwardInput && !backwardInput) _direction = 1f;
-            else if (backwardInput && !forwardInput) _direction = -1f;
+
+            if (forwardInput && !backwardInput)
+                _direction = 1f;
+            else if (backwardInput && !forwardInput)
+                _direction = -1f;
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Debug.DrawLine(gameObject.transform.position + _offsetRaycast,
-            gameObject.transform.position - new Vector3(0f, _distanceRaycast, 0f), Color.red);
-        _isGrounded = Physics.Raycast(gameObject.transform.position + _offsetRaycast,
-            Vector2.down, _distanceRaycast, LayerMask.GetMask("Ground"));
+        if (_rb == null)
+            return;
+
+        Debug.DrawLine(
+            transform.position + _offsetRaycast,
+            transform.position - new Vector3(0f, _distanceRaycast, 0f),
+            Color.red
+        );
+
+        _isGrounded = Physics.Raycast(
+            transform.position + _offsetRaycast,
+            Vector3.down,
+            _distanceRaycast,
+            LayerMask.GetMask("Ground")
+        );
+
+        if (inputLocked)
+        {
+            OnDecelerate(1);
+            return;
+        }
 
         if (_isGrounded && _wheelController && _pedalsController)
         {
             if (_direction > 0f)
             {
-                if (backwardInput) OnBreak(1);
-                else if (forwardInput) OnAcceleration(1);
-                else OnDecelerate(1);
+                if (backwardInput)
+                    OnBreak(1);
+                else if (forwardInput)
+                    OnAcceleration(1);
+                else
+                    OnDecelerate(1);
+
                 OnTurn(axis);
             }
             else if (_direction < 0f)
             {
-                if (forwardInput) OnBreak(-1);
-                else if (backwardInput) OnAcceleration(-1);
-                else OnDecelerate(-1);
+                if (forwardInput)
+                    OnBreak(-1);
+                else if (backwardInput)
+                    OnAcceleration(-1);
+                else
+                    OnDecelerate(-1);
+
                 OnTurn(axis * -1);
             }
             else
@@ -83,7 +122,8 @@ public class CarMovement : MonoBehaviour
                 OnDecelerate(1);
             }
 
-            if (jumpPedal && jumpWheel) OnJump();
+            if (jumpPedal && jumpWheel)
+                OnJump();
         }
     }
 
@@ -94,10 +134,8 @@ public class CarMovement : MonoBehaviour
         else
             _pedalsController = true;
 
-        _playersInCar++;
-
-        if (_playersInCar >= 2)
-            cameraManager.ChangeCamera();
+        UpdatePlayersInCarCount();
+        UpdateCameraState();
     }
 
     public void PlayerExit(bool isWheel)
@@ -107,35 +145,87 @@ public class CarMovement : MonoBehaviour
         else
             _pedalsController = false;
 
-        if (_playersInCar >= 2)
-            cameraManager.ChangeCamera();
+        UpdatePlayersInCarCount();
+        UpdateCameraState();
+    }
 
-        _playersInCar--;
-        _playersInCar = Mathf.Max(0, _playersInCar);
+    private void UpdatePlayersInCarCount()
+    {
+        _playersInCar = 0;
+
+        if (_wheelController)
+            _playersInCar++;
+
+        if (_pedalsController)
+            _playersInCar++;
+    }
+
+    private void UpdateCameraState()
+    {
+        if (cameraManager == null)
+            return;
+
+        bool shouldUseCarCamera = _playersInCar >= 2;
+
+        cameraManager.SetCarCamera(shouldUseCarCamera);
+    }
+
+    public void SetInputLocked(bool locked)
+    {
+        inputLocked = locked;
+
+        if (locked)
+            ResetCarMovement();
+    }
+
+    public void StopCarImmediately()
+    {
+        ResetCarMovement();
+
+        if (_rb != null)
+        {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
     }
 
     public void OnAccelerator(InputAction.CallbackContext context)
     {
+        if (inputLocked)
+            return;
+
         forwardInput = context.ReadValue<float>() > 0.1f;
     }
 
     public void OnBreakInput(InputAction.CallbackContext context)
     {
+        if (inputLocked)
+            return;
+
         backwardInput = context.ReadValue<float>() > 0.1f;
     }
 
     public void OnJumpPedal(InputAction.CallbackContext context)
     {
+        if (inputLocked)
+            return;
+
         jumpPedal = context.performed;
     }
 
     public void OnSteer(InputAction.CallbackContext context)
     {
+        if (inputLocked)
+            return;
+
         axis = context.ReadValue<float>();
     }
 
     public void OnJumpWheel(InputAction.CallbackContext context)
     {
+        if (inputLocked)
+            return;
+
         jumpWheel = context.performed;
     }
 
@@ -143,44 +233,68 @@ public class CarMovement : MonoBehaviour
     {
         float result = _actualAcceleration + _acceleration * Time.fixedDeltaTime;
         _actualAcceleration = Mathf.Clamp(result, 0f, _maxSpeed);
+
         result = _actualSpeed + _actualAcceleration * Time.fixedDeltaTime;
         _actualSpeed = Mathf.Clamp(result, 0f, _maxSpeed);
-        float tmp = _rb.linearVelocity.y;
-        _rb.linearVelocity = gameObject.transform.forward * _actualSpeed * direction;
-        _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, tmp, _rb.linearVelocity.z);
+
+        float verticalVelocity = _rb.linearVelocity.y;
+
+        _rb.linearVelocity = transform.forward * _actualSpeed * direction;
+        _rb.linearVelocity = new Vector3(
+            _rb.linearVelocity.x,
+            verticalVelocity,
+            _rb.linearVelocity.z
+        );
     }
 
     public void OnDecelerate(float direction)
     {
         float result = _actualAcceleration - _acceleration * Time.fixedDeltaTime;
         _actualAcceleration = Mathf.Clamp(result, 0f, _maxSpeed);
+
         result = _actualSpeed - _friction * Time.fixedDeltaTime;
         _actualSpeed = Mathf.Clamp(result, 0f, _maxSpeed);
-        float tmp = _rb.linearVelocity.y;
-        _rb.linearVelocity = gameObject.transform.forward * _actualSpeed * direction;
-        _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, tmp, _rb.linearVelocity.z);
+
+        float verticalVelocity = _rb.linearVelocity.y;
+
+        _rb.linearVelocity = transform.forward * _actualSpeed * direction;
+        _rb.linearVelocity = new Vector3(
+            _rb.linearVelocity.x,
+            verticalVelocity,
+            _rb.linearVelocity.z
+        );
     }
 
     public void OnBreak(float direction)
     {
         float result = _actualAcceleration - _breakForce * Time.fixedDeltaTime;
         _actualAcceleration = Mathf.Clamp(result, 0f, _maxSpeed);
+
         result = _actualSpeed - _breakForce * Time.fixedDeltaTime;
         _actualSpeed = Mathf.Clamp(result, 0f, _maxSpeed);
-        float tmp = _rb.linearVelocity.y;
-        _rb.linearVelocity = gameObject.transform.forward * _actualSpeed * direction;
-        _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, tmp, _rb.linearVelocity.z);
+
+        float verticalVelocity = _rb.linearVelocity.y;
+
+        _rb.linearVelocity = transform.forward * _actualSpeed * direction;
+        _rb.linearVelocity = new Vector3(
+            _rb.linearVelocity.x,
+            verticalVelocity,
+            _rb.linearVelocity.z
+        );
     }
 
-    public void OnTurn(float axis)
+    public void OnTurn(float inputAxis)
     {
-        float Yrotation = gameObject.transform.eulerAngles.y + axis * _rotationSpeed * (_actualSpeed / 10) * Time.fixedDeltaTime;
-        gameObject.transform.eulerAngles = new Vector3(0f, Yrotation, 0f);
+        float yRotation =
+            transform.eulerAngles.y +
+            inputAxis * _rotationSpeed * (_actualSpeed / 10f) * Time.fixedDeltaTime;
+
+        transform.eulerAngles = new Vector3(0f, yRotation, 0f);
     }
 
     private void OnJump()
     {
-        _rb.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
+        _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -188,19 +302,21 @@ public class CarMovement : MonoBehaviour
         if (other.CompareTag("Level"))
         {
             isInLevel = true;
-            cameraManager._levelCamera = other.GetComponentInChildren<Camera>();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Level")) isInLevel = false;
+        if (other.CompareTag("Level"))
+        {
+            isInLevel = false;
+        }
     }
 
     public void OnKlaxon()
     {
-        print("fahhhhhhhh");
-        audioSource.Play();
+        if (audioSource != null)
+            audioSource.Play();
     }
 
     public void ResetCarMovement()
@@ -215,9 +331,4 @@ public class CarMovement : MonoBehaviour
         _actualSpeed = 0f;
         _direction = 0f;
     }
-
-
-
-
-
 }
