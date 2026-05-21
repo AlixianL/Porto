@@ -8,6 +8,8 @@ public class CarPuzzleArrivalZone : MonoBehaviour
     [SerializeField] private CarMovement carMovement;
     [SerializeField] private CarSeat wheelSeat;
     [SerializeField] private CarSeat pedalsSeat;
+    [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private Camera targetLevelCamera;
 
     [Header("Stop Settings")]
     [SerializeField] private float stopDuration = 2f;
@@ -17,6 +19,12 @@ public class CarPuzzleArrivalZone : MonoBehaviour
     public UnityEvent OnArrivalSequenceCompleted;
 
     private bool sequenceStarted;
+
+    private void Awake()
+    {
+        if (cameraManager == null)
+            cameraManager = FindAnyObjectByType<CameraManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -56,6 +64,11 @@ public class CarPuzzleArrivalZone : MonoBehaviour
 
         if (pedalsSeat != null)
             pedalsSeat.ForceExitSeat();
+
+        if (cameraManager != null && targetLevelCamera != null)
+            cameraManager.SetCurrentLevelCamera(targetLevelCamera);
+        else
+            Debug.LogWarning("CarPuzzleArrivalZone : CameraManager ou TargetLevelCamera manquant.");
 
         if (carMovement != null)
             carMovement.SetInputLocked(false);

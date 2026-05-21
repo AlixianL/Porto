@@ -46,7 +46,7 @@ public class CarMovement : MonoBehaviour
             _rb.maxLinearVelocity = _maxSpeed;
 
         if (cameraManager == null)
-            cameraManager = FindFirstObjectByType<CameraManager>();
+            cameraManager = FindAnyObjectByType<CameraManager>();
 
         UpdatePlayersInCarCount();
         UpdateCameraState();

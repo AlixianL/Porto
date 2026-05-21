@@ -5,36 +5,56 @@ public class CameraManager : MonoBehaviour
     [Header("Car Camera")]
     [SerializeField] private Camera carCamera;
 
-    [Header("Current Level Camera")]
+    [Header("Level Cameras")]
     [SerializeField] private Camera currentLevelCamera;
 
-    private void Start()
+    [SerializeField] private Camera[] allLevelCameras;
+
+    private void Awake()
     {
-        SetCarCamera(false);
+        DisableEverything();
+
+        if (currentLevelCamera != null)
+            currentLevelCamera.enabled = true;
     }
 
     public void SetCurrentLevelCamera(Camera newLevelCamera)
     {
-        if (currentLevelCamera != null)
-            currentLevelCamera.enabled = false;
+        if (newLevelCamera == null)
+            return;
+
+        DisableEverything();
 
         currentLevelCamera = newLevelCamera;
 
-        if (currentLevelCamera != null)
-            currentLevelCamera.enabled = !IsCarCameraActive();
+        currentLevelCamera.enabled = true;
     }
 
     public void SetCarCamera(bool active)
     {
-        if (carCamera != null)
-            carCamera.enabled = active;
+        DisableEverything();
 
-        if (currentLevelCamera != null)
-            currentLevelCamera.enabled = !active;
+        if (active)
+        {
+            if (carCamera != null)
+                carCamera.enabled = true;
+        }
+        else
+        {
+            if (currentLevelCamera != null)
+                currentLevelCamera.enabled = true;
+        }
     }
 
-    public bool IsCarCameraActive()
+    private void DisableEverything()
     {
-        return carCamera != null && carCamera.enabled;
+        if (carCamera != null)
+            carCamera.enabled = false;
+
+        foreach (Camera cam in allLevelCameras)
+        {
+            if (cam != null)
+                cam.enabled = false;
+        }
     }
 }
