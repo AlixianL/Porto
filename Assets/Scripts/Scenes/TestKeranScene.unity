@@ -8399,6 +8399,10 @@ PrefabInstance:
       propertyPath: cameraManager
       value: 
       objectReference: {fileID: 1906282314}
+    - target: {fileID: 7999276669697645174, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
+      propertyPath: _rotationSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8906713038228068848, guid: 9c765cb313b7705458b59a76a2a95a4a, type: 3}
       propertyPath: OnSeatExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
