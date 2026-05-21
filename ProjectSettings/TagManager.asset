@@ -7,6 +7,10 @@ TagManager:
   - Interactible
   - Controllable
   - Ground
+  - Level
+  - CarMovement
+  - LeftDoor
+  - RightDoor
   layers:
   - Default
   - TransparentFX
@@ -14,8 +18,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Pickup
+  - Player
   - 
   - 
   - 

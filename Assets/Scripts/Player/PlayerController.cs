@@ -15,6 +15,12 @@ public class PlayerController : Controller
         print("child test");
     }
 
+    private void OnEnable()
+    {
+        print("test Enble when gameObject is not");
+        gameObject.transform.SetParent(null);
+    }
+
     public override void Update()
     {
         base.Update();
@@ -47,6 +53,7 @@ public class PlayerController : Controller
     public override void InteractInput()
     {
         _playerMovement.Interact();
+        base.InteractInput();
     }
 
     public override void PositiveForce()
