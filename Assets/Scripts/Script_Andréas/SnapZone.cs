@@ -18,7 +18,8 @@ public class SnapZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ThrowableObject throwable = other.GetComponentInParent<ThrowableObject>();
+        ThrowableObject throwable =
+            other.GetComponentInParent<ThrowableObject>();
 
         if (throwable == null)
             return;
@@ -31,13 +32,15 @@ public class SnapZone : MonoBehaviour
         if (freeSlotIndex == -1)
             return;
 
-        TwoPlayerCarryObject heavyObject =
-            other.GetComponentInParent<TwoPlayerCarryObject>();
+        Transform targetSnapPoint = snapPoints[freeSlotIndex];
 
-        if (heavyObject != null)
-            heavyObject.ForceReleaseAll();
+        throwable.transform.position = targetSnapPoint.position;
+        throwable.transform.rotation = targetSnapPoint.rotation;
+        throwable.transform.SetParent(targetSnapPoint);
 
-        throwable.SnapTo(snapPoints[freeSlotIndex]);
+        throwable.SetSnapped(true);
+        throwable.DisablePhysicsAfterSnap();
+
         occupied[freeSlotIndex] = true;
 
         OnObjectSnapped?.Invoke();

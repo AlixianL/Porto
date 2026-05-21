@@ -41,6 +41,7 @@ public class CarMovement : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _rb.centerOfMass = new Vector3(0f, -0.5f, 0f);
 
         if (_rb != null)
             _rb.maxLinearVelocity = _maxSpeed;
@@ -84,7 +85,7 @@ public class CarMovement : MonoBehaviour
             transform.position + _offsetRaycast,
             Vector3.down,
             _distanceRaycast,
-            LayerMask.GetMask("Ground")
+            LayerMask.GetMask("Ground", "Landingground")
         );
 
         if (inputLocked)
@@ -285,11 +286,16 @@ public class CarMovement : MonoBehaviour
 
     public void OnTurn(float inputAxis)
     {
-        float yRotation =
-            transform.eulerAngles.y +
+        if (_rb == null)
+            return;
+
+        float turnAmount =
             inputAxis * _rotationSpeed * (_actualSpeed / 10f) * Time.fixedDeltaTime;
 
-        transform.eulerAngles = new Vector3(0f, yRotation, 0f);
+        Quaternion deltaRotation = Quaternion.Euler(0f, turnAmount, 0f);
+        Quaternion targetRotation = _rb.rotation * deltaRotation;
+
+        _rb.MoveRotation(targetRotation);
     }
 
     private void OnJump()

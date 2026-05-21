@@ -4,28 +4,25 @@ public class ThrowableObject : MonoBehaviour
 {
     public bool IsSnapped { get; private set; }
 
-    private Rigidbody rb;
-    private Collider col;
-
-    void Awake()
+    public void SetSnapped(bool snapped)
     {
-        rb = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
+        IsSnapped = snapped;
     }
 
-    public void SnapTo(Transform snapPoint)
+    public void DisablePhysicsAfterSnap()
     {
-        IsSnapped = true;
+        Rigidbody rb = GetComponent<Rigidbody>();
 
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = true;
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
 
-        transform.SetParent(snapPoint, false);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        Collider[] colliders = GetComponentsInChildren<Collider>();
 
-        if (col != null)
-            col.enabled = true;
+        foreach (Collider col in colliders)
+            col.enabled = false;
     }
 }
