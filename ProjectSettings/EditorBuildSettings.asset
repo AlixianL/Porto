@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scripts/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scripts/Scenes/MainMenu.unity
+    guid: 2014d59df328d5d4086753b21183bf7a
+  - enabled: 1
+    path: Assets/Scripts/Scenes/TestKeranScene.unity
+    guid: 9eb29d2e7f5c0f840b58dcbcc638d9db
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0ab044919abb08d4781404b43f529efe, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
